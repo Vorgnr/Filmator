@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>d34e0662-3d68-43c5-b3fe-49c331600b58</ProjectGuid>
+    <ProjectGuid>{E47DAC5D-A3C6-41F1-ABA3-54D01A66AE73}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>FilmatorTest</RootNamespace>
