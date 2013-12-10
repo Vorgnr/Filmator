@@ -90,7 +90,7 @@
     <Compile Include="Model\Entities\MovieStored.cs" />
     <Compile Include="Model\FilmatorContext.cs" />
     <Compile Include="Model\IDataService.cs" />
-    <Compile Include="Model\Provider\IMovieProvider.cs" />
+    <Compile Include="Model\Provider\MovieProvider.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Page Include="MainWindow.xaml">
