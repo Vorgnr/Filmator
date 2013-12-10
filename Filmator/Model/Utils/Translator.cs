@@ -3,7 +3,7 @@ using TMDbLib.Objects.Movies;
 
 namespace Filmator.Model.Utils {
     public class Translator {
-        public MovieStored MovieToMovieStored(Movie movie) {
+        public static MovieStored RemoteMovieToMovieStored(Movie movie) {
             return new MovieStored {
                 RemoteID = movie.Id,
                 ImdbId = movie.ImdbId,

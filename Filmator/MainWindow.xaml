@@ -19,14 +19,21 @@
     </Window.Resources>
 
     <Grid x:Name="LayoutRoot">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="28" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="6*" />
+            </Grid.ColumnDefinitions>
 
-        <TextBlock FontSize="36"
-                   FontWeight="Bold"
-                   Foreground="Purple"
-                   Text="{Binding WelcomeTitle}"
-                   VerticalAlignment="Center"
-                   HorizontalAlignment="Center"
-                   TextWrapping="Wrap" />
+            <TextBox Grid.Row="0" Grid.Column="1">
+            </TextBox>
+            <ListBox Grid.Row="1" Grid.Column="1">
+            
+            </ListBox>
 
     </Grid>
 </Window>
