@@ -1,6 +1,5 @@
 ﻿using System.Windows;
 using Filmator.ViewModel;
-using Filmator.Model;
 using Filmator.Model.Entities;
 using Filmator.Model.Provider;
 using System;

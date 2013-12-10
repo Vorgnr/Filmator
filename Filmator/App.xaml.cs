@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System.Data.Entity;
+using System.Windows;
+using Filmator.Model;
 using GalaSoft.MvvmLight.Threading;
 
 namespace Filmator {
@@ -7,6 +9,7 @@ namespace Filmator {
     /// </summary>
     public partial class App : Application {
         static App() {
+            Database.SetInitializer<FilmatorContext>(new DropCreateDatabaseAlways<FilmatorContext>());
             DispatcherHelper.Initialize();
         }
     }
