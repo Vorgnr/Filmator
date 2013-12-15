@@ -1,0 +1,31 @@
+﻿<UserControl x:Class="Filmator.View.Controls.NavigationBar"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:r="clr-namespace:Filmator.Resources.View"
+             xmlns:Control="clr-namespace:Filmator.View.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="75" d:DesignWidth="600">
+
+    <StackPanel Grid.Row="1" Orientation="Horizontal">
+        <Grid>
+            <TextBlock Text="{x:Static r:MainWindow.Actual}" />
+        </Grid>
+        <Grid>
+            <TextBlock Text="{x:Static r:MainWindow.Popular}" />
+        </Grid>
+        <Grid>
+            <TextBlock Text="{x:Static r:MainWindow.Best}" />
+        </Grid>
+        <Grid>
+            <TextBlock Text="{x:Static r:MainWindow.MyMovies}" />
+        </Grid>
+        <Grid>
+            <TextBlock Text="{x:Static r:MainWindow.Search}" />
+        </Grid>
+        <Grid>
+            <Control:Search/>
+        </Grid>
+    </StackPanel>
+</UserControl>

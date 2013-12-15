@@ -1,4 +1,6 @@
-﻿using GalaSoft.MvvmLight;
+﻿using System.Collections.ObjectModel;
+using Filmator.Model.Entities;
+using GalaSoft.MvvmLight;
 using Filmator.Model;
 
 namespace Filmator.ViewModel {
@@ -36,6 +38,14 @@ namespace Filmator.ViewModel {
                 RaisePropertyChanged(WelcomeTitlePropertyName);
             }
         }
+
+        public const string MoviesPropertyName = "Movies";
+        private ObservableCollection<MovieStored> _movies;
+        public ObservableCollection<MovieStored> Movies {
+            get { return _movies; }
+            set { _movies = value; RaisePropertyChanged(MoviesPropertyName); }
+        }
+
 
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
