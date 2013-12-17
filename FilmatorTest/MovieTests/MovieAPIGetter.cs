@@ -8,12 +8,12 @@ namespace FilmatorTest.MovieTests
     [TestClass]
     public class MovieAPIGetter
     {
-        private APIMovieProvider _apiProvider;
+        private MovieRemoteProvider _apiProvider;
 
         [TestInitialize]
         public void Initiator()
         {
-            _apiProvider = new APIMovieProvider();
+            _apiProvider = new MovieRemoteProvider();
         }
 
         [TestMethod]

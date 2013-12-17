@@ -91,9 +91,9 @@
     <Compile Include="Model\Entities\MovieStored.cs" />
     <Compile Include="Model\FilmatorContext.cs" />
     <Compile Include="Model\IDataService.cs" />
-    <Compile Include="Model\Provider\APIMovieProvider.cs" />
+    <Compile Include="Model\Provider\MovieRemoteProvider.cs" />
     <Compile Include="Model\Provider\IProvider.cs" />
-    <Compile Include="Model\Provider\MovieProvider.cs" />
+    <Compile Include="Model\Provider\MovieStoredProvider.cs" />
     <Compile Include="Model\Utils\Translator.cs" />
     <Compile Include="View\Controls\Menu.xaml.cs">
       <DependentUpon>Menu.xaml</DependentUpon>

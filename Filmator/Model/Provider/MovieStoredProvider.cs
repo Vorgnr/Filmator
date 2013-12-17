@@ -5,7 +5,7 @@ using System.Linq;
 using TMDbLib.Objects.Movies;
 
 namespace Filmator.Model.Provider {
-    public class MovieProvider : IProvider<MovieStored>{
+    public class MovieStoredProvider : IProvider<MovieStored>{
 
         public List<MovieStored> GetAll()
         {

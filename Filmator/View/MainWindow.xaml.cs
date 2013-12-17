@@ -19,7 +19,7 @@ namespace Filmator {
         }
 
         static void ShowMovie() {
-            MovieProvider movieProvider = new MovieProvider();
+            MovieStoredProvider movieProvider = new MovieStoredProvider();
 
             foreach (MovieStored movie in movieProvider.GetAll()) {
                 Console.WriteLine(movie);

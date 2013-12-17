@@ -7,12 +7,17 @@ using TMDbLib.Objects.Search;
 
 namespace Filmator.Model.Provider
 {
-    public class APIMovieProvider
+    public class MovieRemoteProvider
     {
         TMDbClient _clientAPI = null;
-        public APIMovieProvider()
+        public MovieRemoteProvider()
         {
             _clientAPI = new TMDbClient(ConfigurationManager.AppSettings["ApiKey"]);
+        }
+
+        public Movie GetById(int id)
+        {
+            return _clientAPI.GetMovie(id);
         }
 
         public List<Movie> SearchByName(string searchString)
@@ -20,14 +25,9 @@ namespace Filmator.Model.Provider
             List<Movie> movies = new List<Movie>();
             SearchContainer<SearchMovie> results = _clientAPI.SearchMovie(searchString);
             foreach (var result in results.Results) {
-                movies.Add(_clientAPI.GetMovie(result.Id));
+                movies.Add(GetById(result.Id));
             }
             return movies;
-        }
-
-        public Movie GetById(int id)
-        {
-            return _clientAPI.GetMovie(id);
         }
 
         public List<Movie> GetMostPopular(int page)
@@ -36,7 +36,7 @@ namespace Filmator.Model.Provider
             SearchContainer<MovieResult> results = _clientAPI.GetMovieList(MovieListType.Popular, page);
             foreach (var result in results.Results)
             {
-                movies.Add(_clientAPI.GetMovie(result.Id));
+                movies.Add(GetById(result.Id));
             }
             return movies;
         }
@@ -47,7 +47,7 @@ namespace Filmator.Model.Provider
             SearchContainer<MovieResult> results = _clientAPI.GetMovieList(MovieListType.NowPlaying, page);
             foreach (var result in results.Results)
             {
-                movies.Add(_clientAPI.GetMovie(result.Id));
+                movies.Add(GetById(result.Id));
             }
             return movies;
         }
@@ -58,7 +58,7 @@ namespace Filmator.Model.Provider
             SearchContainer<MovieResult> results = _clientAPI.GetMovieList(MovieListType.TopRated, page);
             foreach (var result in results.Results)
             {
-                movies.Add(_clientAPI.GetMovie(result.Id));
+                movies.Add(GetById(result.Id));
             }
             return movies;
         }
