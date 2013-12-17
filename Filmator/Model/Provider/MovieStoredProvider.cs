@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using TMDbLib.Objects.Movies;
 
 namespace Filmator.Model.Provider {
     public class MovieStoredProvider : IProvider<MovieStored>{
@@ -34,7 +33,7 @@ namespace Filmator.Model.Provider {
             MovieStored movie;
             using (var context = new FilmatorContext())
             {
-                movie = context.MoviesStored.Where(m => m.Title.Contains(name)).First();
+                movie = context.MoviesStored.First(m => m.Title.Contains(name));
                 context.SaveChanges();
             }
             return movie;

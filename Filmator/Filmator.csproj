@@ -95,8 +95,8 @@
     <Compile Include="Model\Provider\IProvider.cs" />
     <Compile Include="Model\Provider\MovieStoredProvider.cs" />
     <Compile Include="Model\Utils\Translator.cs" />
-    <Compile Include="View\Controls\Menu.xaml.cs">
-      <DependentUpon>Menu.xaml</DependentUpon>
+    <Compile Include="View\Controls\Header.xaml.cs">
+      <DependentUpon>Header.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Controls\MovieList.xaml.cs">
       <DependentUpon>MovieList.xaml</DependentUpon>
@@ -111,7 +111,7 @@
     </Compile>
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
-    <Page Include="View\Controls\Menu.xaml">
+    <Page Include="View\Controls\Header.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -1,7 +1,11 @@
 ﻿using System.Collections.ObjectModel;
+using System.Windows;
+using System.Windows.Input;
 using Filmator.Model.Entities;
+using Filmator.Model.Provider;
 using GalaSoft.MvvmLight;
 using Filmator.Model;
+using GalaSoft.MvvmLight.Command;
 
 namespace Filmator.ViewModel {
     /// <summary>
@@ -12,55 +16,62 @@ namespace Filmator.ViewModel {
     /// </summary>
     public class MainViewModel : ViewModelBase {
         private readonly IDataService _dataService;
+        public MovieRemoteProvider ApiProvider { get; set;}
+        public int Page { get; set; }
 
-        /// <summary>
-        /// The <see cref="WelcomeTitle" /> property's name.
-        /// </summary>
-        public const string WelcomeTitlePropertyName = "WelcomeTitle";
+        #region Commands
+        public ICommand GetPopularMoviesCommand { get; set; }
+        public RelayCommand<object> CloseWindowCommand { get; set; }
+        public RelayCommand<object> ToggleMaximizedWindowStateCommand { get; set; }
+        public RelayCommand<object> SetMinimizeWindowStateCommand { get; set; }
+        #endregion
 
-        private string _welcomeTitle = string.Empty;
-
-        /// <summary>
-        /// Gets the WelcomeTitle property.
-        /// Changes to that property's value raise the PropertyChanged event. 
-        /// </summary>
-        public string WelcomeTitle {
-            get {
-                return _welcomeTitle;
-            }
-
-            set {
-                if (_welcomeTitle == value) {
-                    return;
-                }
-
-                _welcomeTitle = value;
-                RaisePropertyChanged(WelcomeTitlePropertyName);
-            }
+        #region Actions
+        private void GetPopularMoviesAction() {
+            MoviesStored = new ObservableCollection<MovieStored>(ApiProvider.GetMostPopular(Page));
         }
 
-        public const string MoviesPropertyName = "Movies";
-        private ObservableCollection<MovieStored> _movies;
-        public ObservableCollection<MovieStored> Movies {
-            get { return _movies; }
-            set { _movies = value; RaisePropertyChanged(MoviesPropertyName); }
+        private void CloseWindowAction(object args) {
+            var wnd = args as Window;
+            if (wnd != null)
+                wnd.Close();
         }
+
+        private void ToggleMaximizedWindowStateAction(object args) {
+            var wnd = args as Window;
+            if (wnd != null)
+                wnd.WindowState = wnd.WindowState == WindowState.Maximized ? WindowState.Normal : WindowState.Maximized;
+        }
+
+        private void SetMinimizeWindowStateAction(object args) {
+            var wnd = args as Window;
+            if (wnd != null)
+                wnd.WindowState = WindowState.Minimized;
+        }
+
+        #endregion
+
+        #region Properties
+
+        public const string MoviesStoredPropertyName = "MoviesStored";
+        private ObservableCollection<MovieStored> _moviesStored;
+        public ObservableCollection<MovieStored> MoviesStored {
+            get { return _moviesStored; }
+            set { _moviesStored = value; RaisePropertyChanged(MoviesStoredPropertyName); }
+        }
+
+        #endregion
 
 
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
         /// </summary>
         public MainViewModel(IDataService dataService) {
-            _dataService = dataService;
-            _dataService.GetData(
-                (item, error) => {
-                    if (error != null) {
-                        // Report error here
-                        return;
-                    }
-
-                    WelcomeTitle = item.Title;
-                });
+            ApiProvider = new MovieRemoteProvider();
+            GetPopularMoviesCommand = new RelayCommand(GetPopularMoviesAction);
+            CloseWindowCommand = new RelayCommand<object>(CloseWindowAction);
+            ToggleMaximizedWindowStateCommand = new RelayCommand<object>(ToggleMaximizedWindowStateAction);
+            SetMinimizeWindowStateCommand = new RelayCommand<object>(SetMinimizeWindowStateAction);
         }
 
         ////public override void Cleanup()

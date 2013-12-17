@@ -8,24 +8,68 @@
              mc:Ignorable="d" 
              d:DesignHeight="75" d:DesignWidth="600">
 
+    <UserControl.Resources>
+
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ButtonBase}">
+                        <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+                            <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="Button.IsDefaulted" Value="True">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" TargetName="border" Value="#3498db"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" TargetName="border" Value="#3498db"/>
+                            </Trigger>
+                            <Trigger Property="ToggleButton.IsChecked" Value="True">
+                                <Setter Property="Background" TargetName="border" Value="#3498db"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Background" TargetName="border" Value="#FFF4F4F4"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="#FFADB2B5"/>
+                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="#FF838383"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="BorderBrush" Value="#2980b9"/>
+            <Setter Property="Background" Value="#2980b9"/>
+        </Style>
+    </UserControl.Resources>
+
     <StackPanel Grid.Row="1" Orientation="Horizontal">
         <Grid>
-            <TextBlock 
-                TextWrapping="Wrap"
-                Margin="15" 
-                Text="{x:Static r:MainWindow.Actual}" />
+            <Button>
+                <TextBlock Text="{x:Static r:MainWindow.Actual}"/>
+            </Button>
         </Grid>
         <Grid>
-            <TextBlock Text="{x:Static r:MainWindow.Popular}" />
+            <Button>
+                <TextBlock Text="{x:Static r:MainWindow.Popular}" />
+            </Button>
         </Grid>
         <Grid>
-            <TextBlock Text="{x:Static r:MainWindow.Best}" />
+            <Button>
+                <TextBlock Text="{x:Static r:MainWindow.Best}" />
+            </Button>
         </Grid>
         <Grid>
-            <TextBlock Text="{x:Static r:MainWindow.MyMovies}" />
+            <Button>
+                <TextBlock Text="{x:Static r:MainWindow.MyMovies}" />
+            </Button>
         </Grid>
         <Grid>
-            <TextBlock Text="{x:Static r:MainWindow.Search}" />
+            <Button>
+                <TextBlock Text="{x:Static r:MainWindow.Search}" />
+            </Button>
         </Grid>
         <Grid>
             <Control:Search/>

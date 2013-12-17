@@ -32,7 +32,7 @@
         </Grid.RowDefinitions>
 
         <!-- Row 0 -->
-        <Control:Menu Grid.Row="0"/>
+        <Control:Header Grid.Row="0"/>
 
         <!-- Row 1 -->
         <Control:NavigationBar Grid.Row="1">
