@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using Filmator.Model.Entities;
+using System.Collections.Generic;
 using System.Configuration;
 using TMDbLib.Client;
 using TMDbLib.Objects.General;
 using TMDbLib.Objects.Movies;
 using TMDbLib.Objects.Search;
+using Filmator.Model.Utils;
 
 namespace Filmator.Model.Provider
 {
@@ -15,14 +17,14 @@ namespace Filmator.Model.Provider
             _clientAPI = new TMDbClient(ConfigurationManager.AppSettings["ApiKey"]);
         }
 
-        public Movie GetById(int id)
+        public MovieStored GetById(int id)
         {
-            return _clientAPI.GetMovie(id);
+            return Translator.RemoteMovieToMovieStored(_clientAPI.GetMovie(id));
         }
 
-        public List<Movie> SearchByName(string searchString)
+        public List<MovieStored> SearchByName(string searchString)
         {
-            List<Movie> movies = new List<Movie>();
+            List<MovieStored> movies = new List<MovieStored>();
             SearchContainer<SearchMovie> results = _clientAPI.SearchMovie(searchString);
             foreach (var result in results.Results) {
                 movies.Add(GetById(result.Id));
@@ -30,9 +32,9 @@ namespace Filmator.Model.Provider
             return movies;
         }
 
-        public List<Movie> GetMostPopular(int page)
+        public List<MovieStored> GetMostPopular(int page)
         {
-            List<Movie> movies = new List<Movie>();
+            List<MovieStored> movies = new List<MovieStored>();
             SearchContainer<MovieResult> results = _clientAPI.GetMovieList(MovieListType.Popular, page);
             foreach (var result in results.Results)
             {
@@ -41,9 +43,9 @@ namespace Filmator.Model.Provider
             return movies;
         }
 
-        public List<Movie> GetNowPlaying(int page)
+        public List<MovieStored> GetNowPlaying(int page)
         {
-            List<Movie> movies = new List<Movie>();
+            List<MovieStored> movies = new List<MovieStored>();
             SearchContainer<MovieResult> results = _clientAPI.GetMovieList(MovieListType.NowPlaying, page);
             foreach (var result in results.Results)
             {
@@ -52,9 +54,9 @@ namespace Filmator.Model.Provider
             return movies;
         }
 
-        public List<Movie> GetTopRated(int page)
+        public List<MovieStored> GetTopRated(int page)
         {
-            List<Movie> movies = new List<Movie>();
+            List<MovieStored> movies = new List<MovieStored>();
             SearchContainer<MovieResult> results = _clientAPI.GetMovieList(MovieListType.TopRated, page);
             foreach (var result in results.Results)
             {
