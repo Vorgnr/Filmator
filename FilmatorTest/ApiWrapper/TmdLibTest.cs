@@ -2,6 +2,10 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TMDbLib.Client;
 using TMDbLib.Objects.Movies;
+using TMDbLib.Objects.Search;
+using TMDbLib.Objects.General;
+using System.Diagnostics;
+using System.Linq;
 
 namespace FilmatorTest.ApiWrapper {
     [TestClass]
@@ -24,8 +28,18 @@ namespace FilmatorTest.ApiWrapper {
         [TestMethod]
         public void TestMovieList() {
             var client = new TMDbClient(ConfigurationManager.AppSettings["ApiKey"]);
-            var movies = client.GetMovieList(MovieListType.Popular, 2);
+            var movies = client.GetMovieList(MovieListType.Popular);
             Assert.AreEqual(movies.Results.Count, 20);
+        }
+
+        [TestMethod]
+        public void TestSearchOneMovie()
+        {
+            var client = new TMDbClient(ConfigurationManager.AppSettings["ApiKey"]);
+            SearchContainer<SearchMovie> result = client.SearchMovie("snatch");
+
+            var movie = client.GetMovie(result.Results.First().Id);
+            Assert.AreEqual(movie.Title, "Snatch");
         }
     }
 }

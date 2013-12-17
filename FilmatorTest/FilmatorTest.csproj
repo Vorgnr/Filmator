@@ -59,6 +59,7 @@
   <ItemGroup>
     <Compile Include="ApiWrapper\TmdLibTest.cs" />
     <Compile Include="Config\ConfigTest.cs" />
+    <Compile Include="MovieTests\MovieAPIGetter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -67,6 +68,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Utils\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Filmator\Filmator.csproj">
+      <Project>{49005a7c-5e7f-4497-ac18-1ba3a50c9965}</Project>
+      <Name>Filmator</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
