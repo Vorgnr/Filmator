@@ -55,6 +55,7 @@
       <HintPath>..\packages\RestSharp.104.4.0\lib\net4\RestSharp.dll</HintPath>
     </Reference>
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
@@ -90,6 +91,8 @@
     <Compile Include="Model\Entities\MovieStored.cs" />
     <Compile Include="Model\FilmatorContext.cs" />
     <Compile Include="Model\IDataService.cs" />
+    <Compile Include="Model\Provider\APIMovieProvider.cs" />
+    <Compile Include="Model\Provider\IProvider.cs" />
     <Compile Include="Model\Provider\MovieProvider.cs" />
     <Compile Include="Model\Utils\Translator.cs" />
     <Compile Include="View\Controls\Menu.xaml.cs">
@@ -176,6 +179,9 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>MainWindow.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
