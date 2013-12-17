@@ -10,7 +10,10 @@
 
     <StackPanel Grid.Row="1" Orientation="Horizontal">
         <Grid>
-            <TextBlock Text="{x:Static r:MainWindow.Actual}" />
+            <TextBlock 
+                TextWrapping="Wrap"
+                Margin="15" 
+                Text="{x:Static r:MainWindow.Actual}" />
         </Grid>
         <Grid>
             <TextBlock Text="{x:Static r:MainWindow.Popular}" />
