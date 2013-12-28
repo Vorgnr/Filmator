@@ -1,6 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:Controls="clr-namespace:Filmator.View.Controls">
+                    xmlns:Controls="clr-namespace:Filmator.View.UserControls">
 
     <Brush x:Key="MidnightBlue">#2c3e50</Brush>
 

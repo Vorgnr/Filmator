@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace Filmator.View.Controls {
+namespace Filmator.View.UserControls {
     /// <summary>
     /// Interaction logic for Header.xaml
     /// </summary>

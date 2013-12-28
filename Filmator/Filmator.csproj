@@ -85,23 +85,30 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Design\DesignDataService.cs" />
     <Compile Include="Model\DataItem.cs" />
     <Compile Include="Model\DataService.cs" />
     <Compile Include="Model\Entities\MovieStored.cs" />
+    <Compile Include="Model\Enums\SearchState.cs" />
     <Compile Include="Model\FilmatorContext.cs" />
     <Compile Include="Model\IDataService.cs" />
+    <Compile Include="Model\Manager\ISearchManager.cs" />
+    <Compile Include="Model\Manager\SearchManager.cs" />
     <Compile Include="Model\Provider\MovieRemoteProvider.cs" />
     <Compile Include="Model\Provider\IProvider.cs" />
     <Compile Include="Model\Provider\MovieStoredProvider.cs" />
+    <Compile Include="Model\Utils\EnumsHelper.cs" />
+    <Compile Include="Model\Utils\FastDelegates.cs" />
     <Compile Include="Model\Utils\Translator.cs" />
-    <Compile Include="View\Controls\Header.xaml.cs">
+    <Compile Include="Converters\SearchStateConverter.cs" />
+    <Compile Include="View\UserControls\Header.xaml.cs">
       <DependentUpon>Header.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Controls\MovieList.xaml.cs">
+    <Compile Include="View\UserControls\MovieList.xaml.cs">
       <DependentUpon>MovieList.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Controls\NavigationBar.xaml.cs">
+    <Compile Include="View\UserControls\NavigationBar.xaml.cs">
       <DependentUpon>NavigationBar.xaml</DependentUpon>
     </Compile>
     <Compile Include="Resources\View\MainWindow.Designer.cs">
@@ -111,23 +118,23 @@
     </Compile>
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
-    <Page Include="View\Controls\Header.xaml">
+    <Page Include="View\UserControls\Header.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Controls\MovieList.xaml">
+    <Page Include="View\UserControls\MovieList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Controls\NavigationBar.xaml">
+    <Page Include="View\UserControls\NavigationBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Controls\Search.xaml">
+    <Page Include="View\UserControls\Search.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Controls\SelectedMovie.xaml">
+    <Page Include="View\UserControls\SelectedMovie.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -139,10 +146,10 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="View\Controls\Search.xaml.cs">
+    <Compile Include="View\UserControls\Search.xaml.cs">
       <DependentUpon>Search.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Controls\SelectedMovie.xaml.cs">
+    <Compile Include="View\UserControls\SelectedMovie.xaml.cs">
       <DependentUpon>SelectedMovie.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\MainWindow.xaml.cs">
@@ -182,6 +189,9 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="View\Controls\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

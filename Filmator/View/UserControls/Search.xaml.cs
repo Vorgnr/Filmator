@@ -13,12 +13,12 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Filmator.View.Controls {
+namespace Filmator.View.UserControls {
     /// <summary>
-    /// Interaction logic for NavigationBar.xaml
+    /// Interaction logic for Search.xaml
     /// </summary>
-    public partial class NavigationBar : UserControl {
-        public NavigationBar() {
+    public partial class Search : UserControl {
+        public Search() {
             InitializeComponent();
         }
     }

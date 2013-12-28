@@ -4,7 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:r="clr-namespace:Filmator.Resources.View"
-        xmlns:Control="clr-namespace:Filmator.View.Controls"
+        xmlns:UserControls="clr-namespace:Filmator.View.UserControls"
+        xmlns:Converters="clr-namespace:Filmator.Converters"
         xmlns:ignore="http://www.ignore.com" mc:Ignorable="d ignore"
         Height="600"
         Width="800"
@@ -14,12 +15,11 @@
         DataContext="{Binding Main, Source={StaticResource Locator}}" FontWeight="Bold">
 
     <Window.Resources>
-        
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Skins\MainSkin.xaml" />
             </ResourceDictionary.MergedDictionaries>
-
+            <Converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
         </ResourceDictionary>
     </Window.Resources>
 
@@ -32,25 +32,26 @@
         </Grid.RowDefinitions>
 
         <!-- Row 0 -->
-        <Control:Header Grid.Row="0"/>
+        <UserControls:Header Grid.Row="0"/>
 
         <!-- Row 1 -->
-        <Control:NavigationBar Grid.Row="1">
+        <UserControls:NavigationBar Grid.Row="1">
 
-        </Control:NavigationBar>
+        </UserControls:NavigationBar>
 
         <!-- Row 2 -->
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="5*"/>
-                <ColumnDefinition Width="20*"/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            
+            <!--Visibility="{Binding IsBusy, Converter={StaticResource BoolToVisibilityConverter}}"-->
+
             <!-- Column 0 -->
-            <Control:MovieList Grid.Column="0"/>
+            <UserControls:MovieList Grid.Column="0"/>
             
             <!-- Column 1 -->
-            <Control:SelectedMovie Grid.Column="1"/>
+            <UserControls:SelectedMovie Grid.Column="1"/>
         </Grid>
 
         <!-- Row 3 -->

@@ -34,7 +34,7 @@ namespace FilmatorTest.MovieTests
         [TestMethod]
         public void TestGetMostPopularMovies()
         {
-            var movies = _apiProvider.GetMostPopular(1);
+            var movies = _apiProvider.GetPopular(1);
             Assert.AreEqual(movies.Count, 20);
         }
 
