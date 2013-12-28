@@ -122,10 +122,10 @@ namespace Filmator.ViewModel {
             SetMinimizeWindowStateCommand = new RelayCommand<object>(SetMinimizeWindowStateAction);
             SetSearchStateCommand = new RelayCommand<string>(SetSearchStateAction);
 
-            SearchManager = new SearchManager();
         }
 
         private void Init() {
+            SearchManager = new SearchManager();
             IsBusy = false;
             SearchVisibility = Visibility.Hidden;
             SearchState = SearchState.NowPlaying;
