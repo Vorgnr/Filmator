@@ -1,4 +1,7 @@
-﻿using Filmator.Model.Entities;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Filmator.Model.Entities;
+using TMDbLib.Objects.General;
 using TMDbLib.Objects.Movies;
 
 namespace Filmator.Model.Utils {
@@ -14,6 +17,23 @@ namespace Filmator.Model.Utils {
                 Tagline = movie.Tagline,
                 Status = movie.Status,
                 Adult = movie.Adult
+            };
+        }
+
+        public static MovieResult MovieStoredToMovieResult(MovieStored movie) {
+            return new MovieResult {
+                Id = movie.RemoteID,
+                Title = movie.Title
+            };
+        }
+
+        public static SearchContainer<MovieResult> MoviesStoredToSearchContainerOfMovieResult(List<MovieStored> movies, int page = 0, int totalPages = 0, int totalResults = 0) {
+            var moviesResult = movies.Select(MovieStoredToMovieResult).ToList();
+            return new SearchContainer<MovieResult> {
+                Page = page,
+                TotalPages = totalPages,
+                TotalResults = totalResults,
+                Results = moviesResult
             };
         }
     }

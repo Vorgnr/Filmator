@@ -87,17 +87,20 @@
     </ApplicationDefinition>
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Design\DesignDataService.cs" />
+    <Compile Include="Design\DesignSearchContainerService.cs" />
     <Compile Include="Model\DataItem.cs" />
     <Compile Include="Model\DataService.cs" />
     <Compile Include="Model\Entities\MovieStored.cs" />
     <Compile Include="Model\Enums\SearchState.cs" />
     <Compile Include="Model\FilmatorContext.cs" />
     <Compile Include="Model\IDataService.cs" />
+    <Compile Include="Model\ISearchContainerService.cs" />
     <Compile Include="Model\Manager\ISearchManager.cs" />
     <Compile Include="Model\Manager\SearchManager.cs" />
-    <Compile Include="Model\Provider\MovieRemoteProvider.cs" />
+    <Compile Include="Model\Provider\SearchMovieProvider.cs" />
     <Compile Include="Model\Provider\IProvider.cs" />
     <Compile Include="Model\Provider\MovieStoredProvider.cs" />
+    <Compile Include="Model\SearchContainerService.cs" />
     <Compile Include="Model\Utils\EnumsHelper.cs" />
     <Compile Include="Model\Utils\FastDelegates.cs" />
     <Compile Include="Model\Utils\Translator.cs" />

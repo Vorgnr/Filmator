@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
-using Filmator.Model.Entities;
+﻿using Filmator.Model.Entities;
 using Filmator.Model.Enums;
+using TMDbLib.Objects.General;
 
 namespace Filmator.Model.Manager {
     public interface ISearchManager {
-        List<MovieStored> GetSearchByState(SearchState state);
+        SearchContainer<MovieResult> GetSearchByState(SearchState state);
+        MovieStored GetMovieStoredById(int id);
     }
 }
