@@ -6,11 +6,14 @@ using System.Threading.Tasks;
 
 namespace Filmator.Model.Provider
 {
-    interface IProvider<T>
+    public interface IProvider<T>
     {
         List<T> GetAll();
+        List<T> GetAll(int page);
         T Create(T obj);
-        T Get(string name);
+        T GetByName(string name);
+        T GetById(int id);
+        T GetByRemoteId(int remoteId);
         List<T> Find(string name);
         void Delete(T obj);
         T Update(T obj);

@@ -70,6 +70,15 @@ namespace Filmator.Resources.View {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ajouter à ma filmothèque.
+        /// </summary>
+        public static string AddToMyMovies {
+            get {
+                return ResourceManager.GetString("AddToMyMovies", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Mieux notés.
         /// </summary>
         public static string Best {

@@ -14,16 +14,7 @@ namespace Filmator {
         /// </summary>
         public MainWindow() {
             InitializeComponent();
-            ShowMovie();
             Closing += (s, e) => ViewModelLocator.Cleanup();
-        }
-
-        static void ShowMovie() {
-            MovieStoredProvider movieProvider = new MovieStoredProvider();
-
-            foreach (MovieStored movie in movieProvider.GetAll()) {
-                Console.WriteLine(movie);
-            }
         }
     }
 }

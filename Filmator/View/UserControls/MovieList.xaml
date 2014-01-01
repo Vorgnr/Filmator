@@ -8,7 +8,16 @@
              mc:Ignorable="d" 
              d:DesignHeight="400" d:DesignWidth="400">
     <Grid>
-        <ListBox x:Name="MoviesResultsListBox" ItemsSource="{Binding SearchContainerOfMovieResult.Results}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" Grid.Row="0">
+            <Button Content="-" Command="{Binding DecrementPageCommand}"/>
+            <TextBlock Text="{Binding Page}"/>
+            <Button Content="+" Command="{Binding IncrementPageCommand}"/>
+        </StackPanel>
+        <ListBox Grid.Row="1" x:Name="MoviesResultsListBox" ItemsSource="{Binding SearchContainerOfMovieResult.Results}">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="SelectionChanged">
                     <i:InvokeCommandAction Command="{Binding SetSelectedMovieCommand}"

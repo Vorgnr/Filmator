@@ -2,11 +2,22 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:r="clr-namespace:Filmator.Resources.View"
              DataContext="{Binding Main, Source={StaticResource Locator}}"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid DataContext="{Binding SelectedMovie}">
-        <TextBlock Text="{Binding Title}"/>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        
+        <TextBlock Grid.Row="0" FontSize="25" Text="{Binding SelectedMovie.Title}"/>
+        <Button Grid.Row="1" 
+                Content="{x:Static r:MainWindow.AddToMyMovies}"
+                Command="{Binding AddToMyMoviesCommand}"
+                CommandParameter="{Binding SelectedMovie.RemoteID}"/>
     </Grid>
 </UserControl>

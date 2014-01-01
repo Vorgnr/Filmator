@@ -5,14 +5,21 @@ using System.Linq;
 
 namespace Filmator.Model.Provider {
     public class MovieStoredProvider : IProvider<MovieStored> {
-
         public List<MovieStored> GetAll() {
-            List<MovieStored> movies;
             using (var context = new FilmatorContext()) {
-                movies = context.MoviesStored.ToList();
-                context.SaveChanges();
+                var movies = context.MoviesStored;
+                return movies.ToList();
             }
-            return movies;
+        }
+
+        public List<MovieStored> GetAll(int page) {
+            using (var context = new FilmatorContext()) {
+                return context.MoviesStored
+                    .OrderBy(m => m.Title)
+                    .Skip((page-1)*20)
+                    .Take(20)
+                    .ToList();
+            }
         }
 
         public MovieStored Create(MovieStored obj) {
@@ -24,40 +31,47 @@ namespace Filmator.Model.Provider {
             return movie;
         }
 
-        public MovieStored Get(string name) {
-            MovieStored movie;
+        public MovieStored GetByName(string name) {
             using (var context = new FilmatorContext()) {
-                movie = context.MoviesStored.First(m => m.Title.Contains(name));
-                context.SaveChanges();
+                return context.MoviesStored.FirstOrDefault(m => m.Title.Contains(name));
             }
-            return movie;
+        }
+
+        public MovieStored GetById(int id) {
+            using (var context = new FilmatorContext()) {
+                return context.MoviesStored.FirstOrDefault(m => m.ID == id);
+            }
+        }
+
+        public MovieStored GetByRemoteId(int remoteId) {
+            using (var context = new FilmatorContext()) {
+                return context.MoviesStored.FirstOrDefault(m => m.RemoteID == remoteId);
+            }
         }
 
         public List<MovieStored> Find(string name) {
             List<MovieStored> movies;
             using (var context = new FilmatorContext()) {
                 movies = context.MoviesStored.Where(m => m.Title.Contains(name)).ToList();
-                context.SaveChanges();
             }
             return movies;
         }
 
         public void Delete(MovieStored obj) {
             using (var context = new FilmatorContext()) {
+                context.MoviesStored.Attach(obj);
                 context.MoviesStored.Remove(obj);
                 context.SaveChanges();
             }
         }
 
         public MovieStored Update(MovieStored obj) {
-            MovieStored movie;
             using (var context = new FilmatorContext()) {
                 context.MoviesStored.Attach(obj);
                 context.Entry(obj).State = EntityState.Modified;
                 context.SaveChanges();
-                movie = context.Entry(obj).Entity;
+                return context.Entry(obj).Entity;
             }
-            return movie;
         }
     }
 }
