@@ -9,7 +9,7 @@ namespace FilmatorTest.Manager {
     public class SearchTest {
         [TestMethod]
         public void SearchBestMethod() {
-            var sm = new SearchManager();
+            var sm = new MovieManager();
             Assert.IsNotNull(sm.GetSearchByState(SearchState.Popular));
         }
     }

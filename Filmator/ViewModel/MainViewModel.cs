@@ -20,8 +20,7 @@ namespace Filmator.ViewModel {
     /// </summary>
     public class MainViewModel : ViewModelBase {
         private readonly ISearchContainerService _dataService;
-        public ISearchManager SearchManager { get; set; }
-        public IProvider<MovieStored> MovieStoredProvider { get; set; }
+        public IMovieManager SearchManager { get; set; }
 
         #region Commands
         public RelayCommand<object> SetSelectedMovieCommand { get; set; } 
@@ -71,7 +70,7 @@ namespace Filmator.ViewModel {
         public void AddToMyMoviesAction(int id) {
             var movie = SearchManager.GetMovieStoredById(id);
             if (movie != null)
-                MovieStoredProvider.Create(movie);
+                SearchManager.Add(movie);
         }
 
         public bool CanAddToMyMovies(int id) {
@@ -195,8 +194,7 @@ namespace Filmator.ViewModel {
         }
 
         private void Init() {
-            SearchManager = new SearchManager();
-            MovieStoredProvider = new MovieStoredProvider();
+            SearchManager = new MovieManager();
             IsBusy = false;
             SearchVisibility = Visibility.Hidden;
             SearchState = SearchState.NowPlaying;

@@ -51,6 +51,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files\Laurent Bugnion (GalaSoft)\Mvvm Light Toolkit\Binaries\WPF4\Microsoft.Practices.ServiceLocation.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.5.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="RestSharp">
       <HintPath>..\packages\RestSharp.104.4.0\lib\net4\RestSharp.dll</HintPath>
     </Reference>
@@ -88,6 +91,8 @@
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Design\DesignDataService.cs" />
     <Compile Include="Design\DesignSearchContainerService.cs" />
+    <Compile Include="Model\Cache\CacheHandler.cs" />
+    <Compile Include="Model\Cache\ICache.cs" />
     <Compile Include="Model\DataItem.cs" />
     <Compile Include="Model\DataService.cs" />
     <Compile Include="Model\Entities\MovieStored.cs" />
@@ -95,8 +100,8 @@
     <Compile Include="Model\FilmatorContext.cs" />
     <Compile Include="Model\IDataService.cs" />
     <Compile Include="Model\ISearchContainerService.cs" />
-    <Compile Include="Model\Manager\ISearchManager.cs" />
-    <Compile Include="Model\Manager\SearchManager.cs" />
+    <Compile Include="Model\Manager\IMovieManager.cs" />
+    <Compile Include="Model\Manager\MovieManager.cs" />
     <Compile Include="Model\Provider\SearchMovieProvider.cs" />
     <Compile Include="Model\Provider\IProvider.cs" />
     <Compile Include="Model\Provider\MovieStoredProvider.cs" />

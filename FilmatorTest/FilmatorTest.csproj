@@ -58,6 +58,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="ApiWrapper\TmdLibTest.cs" />
+    <Compile Include="Cache\CacheTest.cs" />
     <Compile Include="Config\ConfigTest.cs" />
     <Compile Include="Manager\UnitTest1.cs" />
     <Compile Include="MovieTests\MovieAPIGetter.cs" />
