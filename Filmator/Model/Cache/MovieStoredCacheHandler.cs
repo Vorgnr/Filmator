@@ -6,12 +6,13 @@ using Filmator.Model.Entities;
 using Newtonsoft.Json;
 
 namespace Filmator.Model.Cache {
-    public class CacheHandler : ICache<MovieStored> {
+    class MovieStoredCacheHandler : ICache<MovieStored> {
+        public const string _path = "Cache/MovieStored.json";
         public string CachePath { get; set; }
         private CacheList _currentList;
 
-        public CacheHandler() {
-            CachePath = Path.GetFullPath("Cache/MovieStored.json");
+        public MovieStoredCacheHandler() {
+            CachePath = Path.GetFullPath(_path);
             Directory.CreateDirectory(Path.GetDirectoryName(CachePath));
             if (!File.Exists(CachePath))
                 File.Create(CachePath);
@@ -22,9 +23,9 @@ namespace Filmator.Model.Cache {
             return _currentList.Items.Any(item => item.MovieStored.RemoteID == obj.RemoteID);
         }
 
-        public MovieStored Get(int id) {
-            var item = _currentList.Items.FirstOrDefault(i => i.MovieStored.RemoteID == id);
-            if(item == null)
+        public MovieStored Get(object id) {
+            var item = _currentList.Items.FirstOrDefault(i => i.MovieStored.RemoteID == (decimal) id);
+            if (item == null)
                 return null;
             if (item.IsExpired()) {
                 _currentList.Items.Remove(item);

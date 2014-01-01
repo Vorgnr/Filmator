@@ -5,7 +5,7 @@ namespace Filmator.Model.Cache {
     public interface ICache<T> {
         bool Exist(T obj);
         List<T> GetAll();
-        T Get(int id);
+        T Get(object arg = null);
         void Add(T obj, DateTime expirationDate);
     }
 }

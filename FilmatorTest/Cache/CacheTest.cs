@@ -22,7 +22,7 @@ namespace FilmatorTest.Cache {
 
         [TestMethod]
         public void CacheAdd() {
-            ICache<MovieStored> cache = new CacheHandler();
+            var cache = CacheHandlerFactory.GetCacheHandler<MovieStored>();
             var movie = new MovieStored {
                 ID = 5,
                 ImdbId = "2545",
@@ -38,7 +38,7 @@ namespace FilmatorTest.Cache {
 
         [TestMethod]
         public void CacheExist() {
-            ICache<MovieStored> cache = new CacheHandler();
+            var cache = CacheHandlerFactory.GetCacheHandler<MovieStored>();
             var movie = new MovieStored {
                 ID = 5,
                 ImdbId = "2545",

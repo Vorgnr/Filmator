@@ -4,7 +4,6 @@ using System.Windows.Input;
 using Filmator.Model.Entities;
 using Filmator.Model.Enums;
 using Filmator.Model.Manager;
-using Filmator.Model.Provider;
 using Filmator.Model.Utils;
 using GalaSoft.MvvmLight;
 using Filmator.Model;
