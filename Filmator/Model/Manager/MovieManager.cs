@@ -34,34 +34,32 @@ namespace Filmator.Model.Manager {
             movie = ResultProvider.GetById(id);
             if (movie != null) {
                 cacheHandler.Add(movie, DateTime.Now.AddMonths(6));
-                return ResultProvider.GetById(id);
+                return movie;
             }
             return null;
         }
 
         private SearchContainer<MovieResult> TopRated(int page, int numberByPage) {
-            var cacheHandler = CacheHandlerFactory.GetCacheHandler<SearchContainer<MovieResult>>(
-                new Hashtable {{"Page", page}, {"Type", "TopRated"}});
-            var searchContainer = cacheHandler.Get();
+            var cacheHandler = CacheHandlerFactory.GetCacheHandler<SearchContainer<MovieResult>>();
+            var searchContainer = cacheHandler.Get(new Hashtable { { "Page", page }, { "State", SearchState.TopRated.ToString() } });
             if (searchContainer != null)
                 return searchContainer;
             searchContainer = ResultProvider.TopRated(page);
             if(searchContainer != null) {
-                cacheHandler.Add(searchContainer, DateTime.Now.AddHours(5));
+                cacheHandler.Add(searchContainer, DateTime.Now.AddHours(5), SearchState.TopRated.ToString());
                 return searchContainer;
             }
             return null;
         }
 
         private SearchContainer<MovieResult> Popular(int page, int numberByPage) {
-            var cacheHandler = CacheHandlerFactory.GetCacheHandler<SearchContainer<MovieResult>>(
-                new Hashtable { { "Page", page }, { "Type", "Popular" } });
-            var searchContainer = cacheHandler.Get();
+            var cacheHandler = CacheHandlerFactory.GetCacheHandler<SearchContainer<MovieResult>>();
+            var searchContainer = cacheHandler.Get(new Hashtable { { "Page", page }, { "State", SearchState.Popular.ToString() } });
             if (searchContainer != null)
                 return searchContainer;
             searchContainer = ResultProvider.Popular(page);
             if (searchContainer != null) {
-                cacheHandler.Add(searchContainer, DateTime.Now.AddHours(5));
+                cacheHandler.Add(searchContainer, DateTime.Now.AddHours(5), SearchState.Popular.ToString());
                 return searchContainer;
             }
             return null;
@@ -72,14 +70,13 @@ namespace Filmator.Model.Manager {
         }
 
         private SearchContainer<MovieResult> NowPlaying(int page, int numberByPage) {
-            var cacheHandler = CacheHandlerFactory.GetCacheHandler<SearchContainer<MovieResult>>(
-                new Hashtable { { "Page", page }, { "Type", "NowPlaying" } });
-            var searchContainer = cacheHandler.Get();
+            var cacheHandler = CacheHandlerFactory.GetCacheHandler<SearchContainer<MovieResult>>();
+            var searchContainer = cacheHandler.Get(new Hashtable { { "Page", page }, { "State", SearchState.NowPlaying.ToString() } });
             if (searchContainer != null)
                 return searchContainer;
             searchContainer = ResultProvider.NowPlaying(page);
             if (searchContainer != null) {
-                cacheHandler.Add(searchContainer, DateTime.Now.AddHours(5));
+                cacheHandler.Add(searchContainer, DateTime.Now.AddHours(5), SearchState.NowPlaying.ToString());
                 return searchContainer;
             }
             return null;

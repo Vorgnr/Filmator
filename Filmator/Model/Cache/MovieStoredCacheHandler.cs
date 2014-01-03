@@ -24,7 +24,7 @@ namespace Filmator.Model.Cache {
         }
 
         public MovieStored Get(object id) {
-            var item = _currentList.Items.FirstOrDefault(i => i.MovieStored.RemoteID == (decimal) id);
+            var item = _currentList.Items.FirstOrDefault(i => i.MovieStored.RemoteID == (int) id);
             if (item == null)
                 return null;
             if (item.IsExpired()) {
@@ -34,7 +34,7 @@ namespace Filmator.Model.Cache {
             return item.MovieStored;
         }
 
-        public void Add(MovieStored obj, DateTime expirationDate) {
+        public void Add(MovieStored obj, DateTime expirationDate, string state = "") {
             var serializer = new JsonSerializer();
             _currentList.Items.Add(new CacheItem {
                 MovieStored = obj,
@@ -46,10 +46,6 @@ namespace Filmator.Model.Cache {
                 jw.Formatting = Formatting.Indented;
                 serializer.Serialize(jw, _currentList);
             }
-        }
-
-        public List<MovieStored> GetAll() {
-            throw new NotImplementedException();
         }
 
         private CacheList GetCurrentList() {

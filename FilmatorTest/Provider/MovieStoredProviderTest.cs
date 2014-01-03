@@ -24,29 +24,12 @@ namespace FilmatorTest.Provider {
         }
 
         [TestMethod]
-        public void TestGetById() {
-            var movieProvider = new MovieStoredProvider();
-            var movie = movieProvider.GetById(5);
-            Assert.IsNotNull(movie);
-            Assert.AreEqual(5, movie.ID);
-        }
-
-        [TestMethod]
         public void TestGetByRemoteId() {
             var movieProvider = new MovieStoredProvider();
             var movie = movieProvider.GetByRemoteId(25);
             Assert.IsNotNull(movie);
             Assert.AreEqual(25, movie.RemoteID);
 
-        }
-
-        [TestMethod]
-        public void TestDelete() {
-            var movieProvider = new MovieStoredProvider();
-            var movie = movieProvider.GetById(5);
-            movieProvider.Delete(movie);
-            var movie2 = movieProvider.GetById(5);
-            Assert.IsNull(movie2);
         }
 
         [TestMethod]

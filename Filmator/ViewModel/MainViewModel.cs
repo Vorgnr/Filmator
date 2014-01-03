@@ -19,7 +19,7 @@ namespace Filmator.ViewModel {
     /// </summary>
     public class MainViewModel : ViewModelBase {
         private readonly ISearchContainerService _dataService;
-        public IMovieManager SearchManager { get; set; }
+        public IMovieManager MovieManager { get; set; }
 
         #region Commands
         public RelayCommand<object> SetSelectedMovieCommand { get; set; } 
@@ -67,9 +67,9 @@ namespace Filmator.ViewModel {
         #endregion
         #region Query
         public void AddToMyMoviesAction(int id) {
-            var movie = SearchManager.GetMovieStoredById(id);
+            var movie = MovieManager.GetMovieStoredById(id);
             if (movie != null)
-                SearchManager.Add(movie);
+                MovieManager.Add(movie);
         }
 
         public bool CanAddToMyMovies(int id) {
@@ -78,13 +78,13 @@ namespace Filmator.ViewModel {
 
         public void IncrementPageAction() {
             Page++;
-            SearchContainerOfMovieResult = SearchManager.GetSearchByState(SearchState, Page);
+            SearchContainerOfMovieResult = MovieManager.GetSearchByState(SearchState, Page);
             IncrementPageCommand.RaiseCanExecuteChanged();
         }
 
         public void DecrementPageAction() {
             Page--;
-            SearchContainerOfMovieResult = SearchManager.GetSearchByState(SearchState, Page);
+            SearchContainerOfMovieResult = MovieManager.GetSearchByState(SearchState, Page);
             DecrementPageCommand.RaiseCanExecuteChanged();
         }
 
@@ -98,14 +98,14 @@ namespace Filmator.ViewModel {
 
         public void SetSelecteMovieAction(object args) {
             var movie = args as MovieResult;
-            if (movie != null) SelectedMovie = SearchManager.GetMovieStoredById(movie.Id);
+            if (movie != null) SelectedMovie = MovieManager.GetMovieStoredById(movie.Id);
         }
 
         public void SetSearchStateAction(string descriptionState) {
             IsBusy = true;
             Page = 1;
             SearchState = EnumsHelper.GetEnumByDescription<SearchState>(descriptionState);
-            SearchContainerOfMovieResult = SearchManager.GetSearchByState(SearchState);
+            SearchContainerOfMovieResult = MovieManager.GetSearchByState(SearchState);
             IsBusy = false;
         }
         #endregion
@@ -193,7 +193,7 @@ namespace Filmator.ViewModel {
         }
 
         private void Init() {
-            SearchManager = new MovieManager();
+            MovieManager = new MovieManager();
             IsBusy = false;
             SearchVisibility = Visibility.Hidden;
             SearchState = SearchState.NowPlaying;

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -10,12 +11,8 @@ namespace Filmator.Model.Cache {
         public const string _path = "Cache/SearchContainer.json";
         public string CachePath { get; set; }
         private CacheList _currentList;
-        private string _type;
-        private int _page;
 
-        public SearchContainerCacheHandler(string type, int page) {
-            _type = type;
-            _page = page;
+        public SearchContainerCacheHandler() {
             CachePath = Path.GetFullPath(_path);
             Directory.CreateDirectory(Path.GetDirectoryName(CachePath));
             if (!File.Exists(CachePath))
@@ -32,17 +29,17 @@ namespace Filmator.Model.Cache {
             }
         }
 
-        public bool Exist(SearchContainer<MovieResult> obj) {
-            throw new NotImplementedException();
-        }
+        public SearchContainer<MovieResult> Get(object options) {
+            if(options.GetType() != typeof(Hashtable))
+                throw new ArgumentException("arg must be an Hashtable");
+            var searchContainerData = options as Hashtable;
+            if (searchContainerData == null || !searchContainerData.ContainsKey("Page") || !searchContainerData.ContainsKey("State"))
+                throw new ArgumentException("arg must contains Page and State as key");
+            if (searchContainerData["State"] == null || searchContainerData["State"].GetType() != typeof(string))
+                throw new ArgumentException("Value of Page must be a String");
 
-        public List<SearchContainer<MovieResult>> GetAll() {
-            throw new NotImplementedException();
-        }
-
-        public SearchContainer<MovieResult> Get(object arg) {
-            var cacheItem = (from item in _currentList.Items 
-                             where item.Type == _type && item.SearchContainer.Page == _page 
+            var cacheItem = (from item in _currentList.Items
+                             where (item.SearchContainer.Page == (int)searchContainerData["Page"]) && (item.State == (string)searchContainerData["State"])
                              select item).FirstOrDefault();
             if (cacheItem == null)
                 return null;
@@ -53,12 +50,12 @@ namespace Filmator.Model.Cache {
             return cacheItem.SearchContainer;
         }
 
-        public void Add(SearchContainer<MovieResult> obj, DateTime expirationDate) {
+        public void Add(SearchContainer<MovieResult> obj, DateTime expirationDate, string state) {
             var serializer = new JsonSerializer();
             _currentList.Items.Add(new CacheItem {
+                State = state,
                 SearchContainer = obj,
                 ExpirationDate = expirationDate,
-                Type = _type
             });
             using (var fs = File.Open(CachePath, FileMode.OpenOrCreate))
             using (var sw = new StreamWriter(fs))
@@ -78,7 +75,7 @@ namespace Filmator.Model.Cache {
 
         class CacheItem {
             public SearchContainer<MovieResult> SearchContainer { get; set; }
-            public string Type { get; set; }
+            public string State { get; set; }
             public DateTime ExpirationDate { get; set; }
             public bool IsExpired() {
                 return DateTime.Now > ExpirationDate;
