@@ -132,6 +132,9 @@
   <data name="File" xml:space="preserve">
     <value>Fichier</value>
   </data>
+  <data name="Genre" xml:space="preserve">
+    <value>Genre</value>
+  </data>
   <data name="MyMovies" xml:space="preserve">
     <value>Ma collection</value>
   </data>

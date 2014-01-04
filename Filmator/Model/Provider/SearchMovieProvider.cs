@@ -31,5 +31,9 @@ namespace Filmator.Model.Provider {
         public SearchContainer<MovieResult> TopRated(int page) {
             return _clientApi.GetMovieList(MovieListType.TopRated, page);
         }
+
+        public SearchContainer<MovieResult> GetByGenreId(int genreId, int page) {
+            return _clientApi.GetGenreMovies(genreId, page);
+        }
     }
 }

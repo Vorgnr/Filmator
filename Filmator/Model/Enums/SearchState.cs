@@ -11,6 +11,8 @@ namespace Filmator.Model.Enums {
         [Description("MyMovies")]
         MyMovies,
         [Description("Custom")]
-        Custom
+        Custom,
+        [Description("Genre")]
+        Genre
     }
 }

@@ -4,6 +4,7 @@ using System.Windows.Input;
 using Filmator.Model.Entities;
 using Filmator.Model.Enums;
 using Filmator.Model.Manager;
+using Filmator.Model.Provider;
 using Filmator.Model.Utils;
 using GalaSoft.MvvmLight;
 using Filmator.Model;
@@ -20,13 +21,22 @@ namespace Filmator.ViewModel {
     public class MainViewModel : ViewModelBase {
         private readonly ISearchContainerService _dataService;
         public IMovieManager MovieManager { get; set; }
+        public IGenreManager GenreManager { get; set; }
 
         #region Commands
-        public RelayCommand<object> SetSelectedMovieCommand { get; set; } 
+
+        #region ToggleVisibility
+        public ICommand ToggleBusyVisibilityCommand { get; set; }
+        public ICommand ToggleSearchVisibilityCommand { get; set; }
+        public ICommand ToggleMovieListVisibilityCommand { get; set; }
+        public ICommand ToggleSelectedMovieVisibilityCommand { get; set; }
+        public ICommand ToggleGenreListVisibilityCommand { get; set; }
+        #endregion
+
+        public RelayCommand<object> SetSelectedMovieCommand { get; set; }
+        public RelayCommand<object> SetSelectedGenreCommand { get; set; } 
         public RelayCommand<string> SetSearchStateCommand { get; set; }
         public ICommand GetPopularMoviesCommand { get; set; }
-        public ICommand ToggleSearchVisibilityCommand { get; set; }
-        public ICommand ToggleBusyVisibilityCommand { get; set; }
         public RelayCommand IncrementPageCommand { get; private set; }
         public RelayCommand DecrementPageCommand { get; private set; }
         public RelayCommand<object> CloseWindowCommand { get; set; }
@@ -37,6 +47,28 @@ namespace Filmator.ViewModel {
 
         #region Actions
         #region View
+
+        #region Visibility
+        private void ToggleSearchVisibilityAction() {
+            SearchVisibility = SearchVisibility != Visibility.Visible ? Visibility.Visible : Visibility.Hidden;
+        }
+
+        private void ToggleBusysVisibilityAction() {
+            IsBusy = !IsBusy;
+        }
+
+        private void ToggleMovieListVisibilityAction() {
+            MovieListVisibility = MovieListVisibility != Visibility.Visible ? Visibility.Visible : Visibility.Hidden;
+        }
+
+        private void ToggleSelectedMovieVisibilityAction() {
+            SelectedMovieVisibility = SelectedMovieVisibility != Visibility.Visible ? Visibility.Visible : Visibility.Hidden;
+        }
+
+        private void ToggleGenreListVisibilityAction() {
+            GenreListVisibility = GenreListVisibility != Visibility.Visible ? Visibility.Visible : Visibility.Hidden;
+        }
+        #endregion
 
         private void CloseWindowAction(object args) {
             var wnd = args as Window;
@@ -54,14 +86,6 @@ namespace Filmator.ViewModel {
             var wnd = args as Window;
             if (wnd != null)
                 wnd.WindowState = WindowState.Minimized;
-        }
-
-        private void ToggleSearchVisibilityAction() {
-            SearchVisibility = SearchVisibility != Visibility.Visible ? Visibility.Visible : Visibility.Hidden;
-        }
-
-        private void ToggleBusysVisibilityAction() {
-            IsBusy = !IsBusy;
         }
 
         #endregion
@@ -96,17 +120,23 @@ namespace Filmator.ViewModel {
             return Page > 1;
         }
 
-        public void SetSelecteMovieAction(object args) {
-            var movie = args as MovieResult;
+        public void SetSelecteMovieAction(object arg) {
+            SelectedMovieVisibility = Visibility.Visible;
+            var movie = arg as MovieResult;
             if (movie != null) SelectedMovie = MovieManager.GetMovieStoredById(movie.Id);
         }
 
         public void SetSearchStateAction(string descriptionState) {
-            IsBusy = true;
             Page = 1;
             SearchState = EnumsHelper.GetEnumByDescription<SearchState>(descriptionState);
             SearchContainerOfMovieResult = MovieManager.GetSearchByState(SearchState);
-            IsBusy = false;
+            MovieListVisibility = Visibility.Visible;
+        }
+
+        public void SetSelectedGenreAction(object arg) {
+            var genre = arg as Genre;
+            SelectedGenre = genre;
+            if (genre != null) SearchContainerOfMovieResult = GenreManager.GetSearchContainerByGenreId(genre.Id, Page);
         }
         #endregion
         #endregion
@@ -125,6 +155,27 @@ namespace Filmator.ViewModel {
         public Visibility SearchVisibility {
             get { return _searchVisibility; }
             set { _searchVisibility = value; RaisePropertyChanged(SearchVisibilityPropertyName); }
+        }
+
+        public const string MovieListVisibilityPropertyName = "MovieListVisibility";
+        private Visibility _movieListVisibility;
+        public Visibility MovieListVisibility {
+            get { return _movieListVisibility; }
+            set { _movieListVisibility = value; RaisePropertyChanged(MovieListVisibilityPropertyName); }
+        }
+
+        public const string SelectedMovieVisibilityPropertyName = "SelectedMovieVisibility";
+        private Visibility _selectedMovieVisibility;
+        public Visibility SelectedMovieVisibility {
+            get { return _selectedMovieVisibility; }
+            set { _selectedMovieVisibility = value; RaisePropertyChanged(SelectedMovieVisibilityPropertyName); }
+        }
+
+        public const string GenreListVisibilityPropertyName = "GenreListVisibility";
+        private Visibility _genreListVisibility;
+        public Visibility GenreListVisibility {
+            get { return _genreListVisibility; }
+            set { _genreListVisibility = value; RaisePropertyChanged(GenreListVisibilityPropertyName); }
         }
         #endregion
         #region Query
@@ -149,6 +200,13 @@ namespace Filmator.ViewModel {
             set { _selectedMovie = value; RaisePropertyChanged(SelectedMoviePropertyName); }
         }
 
+        public const string SelectedGenrePropertyName = "SelectedGenre";
+        private Genre _selectedGenre;
+        public Genre SelectedGenre {
+            get { return _selectedGenre; }
+            set { _selectedGenre = value; RaisePropertyChanged(SelectedGenrePropertyName); }
+        }
+
         public const string MoviesResultsPropertyName = "MoviesResults";
         private ObservableCollection<MovieResult> _moviesResults;
         public ObservableCollection<MovieResult> MoviesResults {
@@ -161,6 +219,13 @@ namespace Filmator.ViewModel {
         public SearchContainer<MovieResult> SearchContainerOfMovieResult {
             get { return _searchContainerOfMovieResult; }
             set { _searchContainerOfMovieResult = value; RaisePropertyChanged(SearchContainerOfMovieResultPropertyName); }
+        }
+
+        public const string GenresPropertyName = "Genres";
+        private ObservableCollection<Genre> _genres;
+        public ObservableCollection<Genre> Genres {
+            get { return _genres; }
+            set { _genres = value; RaisePropertyChanged(GenresPropertyName); }
         }
         #endregion
         #endregion
@@ -183,10 +248,14 @@ namespace Filmator.ViewModel {
             Init();
             CloseWindowCommand = new RelayCommand<object>(CloseWindowAction);
             ToggleMaximizedWindowStateCommand = new RelayCommand<object>(ToggleMaximizedWindowStateAction);
-            ToggleSearchVisibilityCommand =new RelayCommand(ToggleSearchVisibilityAction);
+            ToggleSearchVisibilityCommand = new RelayCommand(ToggleSearchVisibilityAction);
+            ToggleMovieListVisibilityCommand = new RelayCommand(ToggleMovieListVisibilityAction);
+            ToggleSelectedMovieVisibilityCommand = new RelayCommand(ToggleSelectedMovieVisibilityAction);
+            ToggleGenreListVisibilityCommand = new RelayCommand(ToggleGenreListVisibilityAction);
             SetMinimizeWindowStateCommand = new RelayCommand<object>(SetMinimizeWindowStateAction);
             SetSearchStateCommand = new RelayCommand<string>(SetSearchStateAction);
             SetSelectedMovieCommand = new RelayCommand<object>(SetSelecteMovieAction);
+            SetSelectedGenreCommand = new RelayCommand<object>(SetSelectedGenreAction);
             IncrementPageCommand = new RelayCommand(IncrementPageAction, CanIncrementPage);
             DecrementPageCommand = new RelayCommand(DecrementPageAction, CanDecrementPage);
             AddToMyMoviesCommand = new RelayCommand<int>(AddToMyMoviesAction, CanAddToMyMovies);
@@ -194,10 +263,15 @@ namespace Filmator.ViewModel {
 
         private void Init() {
             MovieManager = new MovieManager();
+            GenreManager = new GenreManager();
             IsBusy = false;
             SearchVisibility = Visibility.Hidden;
+            MovieListVisibility = Visibility.Hidden;
+            GenreListVisibility = Visibility.Hidden;
+            SelectedMovieVisibility = Visibility.Hidden;
             SearchState = SearchState.NowPlaying;
             SetSearchStateAction(SearchState.ToString());
+            Genres = new ObservableCollection<Genre>(GenreManager.GetAll());
         }
 
         ////public override void Cleanup()

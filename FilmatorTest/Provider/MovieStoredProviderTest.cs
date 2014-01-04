@@ -1,5 +1,4 @@
-﻿using System;
-using Filmator.Model.Entities;
+﻿using Filmator.Model.Entities;
 using Filmator.Model.Provider;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

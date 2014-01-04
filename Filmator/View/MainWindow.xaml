@@ -35,9 +35,7 @@
         <UserControls:Header Grid.Row="0"/>
 
         <!-- Row 1 -->
-        <UserControls:NavigationBar Grid.Row="1">
-
-        </UserControls:NavigationBar>
+        <UserControls:NavigationBar Grid.Row="1"/>
 
         <!-- Row 2 -->
         <Grid Grid.Row="2">
@@ -48,13 +46,14 @@
             <!--Visibility="{Binding IsBusy, Converter={StaticResource BoolToVisibilityConverter}}"-->
 
             <!-- Column 0 -->
-            <UserControls:MovieList Grid.Column="0"/>
+            <UserControls:MovieList Grid.Column="0" Visibility="{Binding MovieListVisibility}"/>
             
             <!-- Column 1 -->
-            <UserControls:SelectedMovie Grid.Column="1"/>
+            <UserControls:SelectedMovie Grid.Column="1" Visibility="{Binding SelectedMovieVisibility}"/>
+
+            <UserControls:GenreList Grid.Column="1" Visibility="{Binding GenreListVisibility}"/>
         </Grid>
 
         <!-- Row 3 -->
     </Grid>
-
 </Window>

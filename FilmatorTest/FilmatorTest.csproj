@@ -64,6 +64,7 @@
     <Compile Include="MovieTests\MovieAPIGetter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Provider\MovieStoredProviderTest.cs" />
+    <Compile Include="Provider\GenreTest.cs" />
     <Compile Include="Utils\UnitTest1.cs" />
   </ItemGroup>
   <ItemGroup>

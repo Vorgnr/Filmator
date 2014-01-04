@@ -102,8 +102,11 @@
     <Compile Include="Model\FilmatorContext.cs" />
     <Compile Include="Model\IDataService.cs" />
     <Compile Include="Model\ISearchContainerService.cs" />
+    <Compile Include="Model\Manager\GenreManager.cs" />
+    <Compile Include="Model\Manager\IGenreManager.cs" />
     <Compile Include="Model\Manager\IMovieManager.cs" />
     <Compile Include="Model\Manager\MovieManager.cs" />
+    <Compile Include="Model\Provider\GenreProvider.cs" />
     <Compile Include="Model\Provider\SearchMovieProvider.cs" />
     <Compile Include="Model\Provider\IProvider.cs" />
     <Compile Include="Model\Provider\MovieStoredProvider.cs" />
@@ -112,6 +115,9 @@
     <Compile Include="Model\Utils\FastDelegates.cs" />
     <Compile Include="Model\Utils\Translator.cs" />
     <Compile Include="Converters\SearchStateConverter.cs" />
+    <Compile Include="View\UserControls\GenreList.xaml.cs">
+      <DependentUpon>GenreList.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\UserControls\Header.xaml.cs">
       <DependentUpon>Header.xaml</DependentUpon>
     </Compile>
@@ -128,6 +134,10 @@
     </Compile>
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
+    <Page Include="View\UserControls\GenreList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\UserControls\Header.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

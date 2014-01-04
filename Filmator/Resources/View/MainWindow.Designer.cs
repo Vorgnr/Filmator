@@ -106,6 +106,15 @@ namespace Filmator.Resources.View {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Genre.
+        /// </summary>
+        public static string Genre {
+            get {
+                return ResourceManager.GetString("Genre", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ma collection.
         /// </summary>
         public static string MyMovies {

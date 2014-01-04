@@ -110,6 +110,11 @@
             </Button>
         </Grid>
         <Grid>
+            <Button Command="{Binding ToggleGenreListVisibilityCommand}">
+                <TextBlock Text="{x:Static r:MainWindow.Genre}" />
+            </Button>
+        </Grid>
+        <Grid>
             <Button Tag="MyMovies" Style="{StaticResource SearchButton}">
                 <TextBlock Text="{x:Static r:MainWindow.MyMovies}" />
             </Button>
