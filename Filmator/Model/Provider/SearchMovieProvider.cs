@@ -4,6 +4,7 @@ using Filmator.Model.Utils;
 using TMDbLib.Client;
 using TMDbLib.Objects.General;
 using TMDbLib.Objects.Movies;
+using TMDbLib.Objects.Search;
 
 namespace Filmator.Model.Provider {
     public class SearchMovieProvider {
@@ -16,9 +17,9 @@ namespace Filmator.Model.Provider {
             return Translator.RemoteMovieToMovieStored(_clientApi.GetMovie(id));
         }
 
-        //public SearchMovie SearchByName(string searchString) {
-        //    return _clientApi.SearchMovie(searchString);
-        //}
+        public SearchContainer<SearchMovie> GetSearchByMovieName(string name, int page) {
+            return _clientApi.SearchMovie(name, page);
+        }
 
         public SearchContainer<MovieResult> Popular(int page) {
             return _clientApi.GetMovieList(MovieListType.Popular, page);

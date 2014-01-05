@@ -41,5 +41,7 @@ namespace FilmatorTest.ApiWrapper {
             var movie = client.GetMovie(result.Results.First().Id);
             Assert.AreEqual(movie.Title, "Snatch");
         }
+
+
     }
 }

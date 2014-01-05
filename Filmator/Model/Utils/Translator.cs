@@ -3,6 +3,7 @@ using System.Linq;
 using Filmator.Model.Entities;
 using TMDbLib.Objects.General;
 using TMDbLib.Objects.Movies;
+using TMDbLib.Objects.Search;
 
 namespace Filmator.Model.Utils {
     public class Translator {
@@ -24,6 +25,23 @@ namespace Filmator.Model.Utils {
             return new MovieResult {
                 Id = movie.RemoteID,
                 Title = movie.Title
+            };
+        }
+
+        public static MovieResult SearchMovieToMovieResult(SearchMovie movie) {
+            return new MovieResult {
+                Id = movie.Id,
+                Title = movie.Title
+            };
+        }
+
+        public static SearchContainer<MovieResult> SearchMoviesToSearchContainerOfMovieResult(List<SearchMovie> movies, int page = 0, int totalPages = 0, int totalResults = 0) {
+            var moviesResult = movies.Select(SearchMovieToMovieResult).ToList();
+            return new SearchContainer<MovieResult> {
+                Page = page,
+                TotalPages = totalPages,
+                TotalResults = totalResults,
+                Results = moviesResult
             };
         }
 

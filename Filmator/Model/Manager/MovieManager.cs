@@ -17,13 +17,13 @@ namespace Filmator.Model.Manager {
             ResultProvider = new SearchMovieProvider();
         }
 
-        public SearchContainer<MovieResult> GetSearchByState(SearchState state, int page = 1, int numberByPage = 20) {
+        public SearchContainer<MovieResult> GetSearchByState(SearchState state, int page = 1, string name = "", int numberByPage = 20) {
             var method = typeof(MovieManager).GetMethod(state.ToString(), BindingFlags.NonPublic | BindingFlags.Instance);
             if (method == null) {
                 return new SearchContainer<MovieResult>();
             }
             var callback = FastDelegates.DelegateFactory.Create(method);
-            return (SearchContainer<MovieResult>)callback(this , new object[] {page, numberByPage});
+            return (SearchContainer<MovieResult>)callback(this , new object[] {page, numberByPage, name});
         }
 
         public MovieStored GetMovieStoredById(int id) {
@@ -39,7 +39,7 @@ namespace Filmator.Model.Manager {
             return null;
         }
 
-        private SearchContainer<MovieResult> TopRated(int page, int numberByPage) {
+        private SearchContainer<MovieResult> TopRated(int page, int numberByPage, string name) {
             var cacheHandler = CacheHandlerFactory.GetCacheHandler<SearchContainer<MovieResult>>();
             var searchContainer = cacheHandler.Get(new Hashtable { { "Page", page }, { "State", SearchState.TopRated.ToString() } });
             if (searchContainer != null)
@@ -52,7 +52,7 @@ namespace Filmator.Model.Manager {
             return null;
         }
 
-        private SearchContainer<MovieResult> Popular(int page, int numberByPage) {
+        private SearchContainer<MovieResult> Popular(int page, int numberByPage, string name) {
             var cacheHandler = CacheHandlerFactory.GetCacheHandler<SearchContainer<MovieResult>>();
             var searchContainer = cacheHandler.Get(new Hashtable { { "Page", page }, { "State", SearchState.Popular.ToString() } });
             if (searchContainer != null)
@@ -65,11 +65,7 @@ namespace Filmator.Model.Manager {
             return null;
         }
 
-        private SearchContainer<MovieResult> Custom(int page, int numberByPage) {
-            throw new NotImplementedException();
-        }
-
-        private SearchContainer<MovieResult> NowPlaying(int page, int numberByPage) {
+        private SearchContainer<MovieResult> NowPlaying(int page, int numberByPage, string name) {
             var cacheHandler = CacheHandlerFactory.GetCacheHandler<SearchContainer<MovieResult>>();
             var searchContainer = cacheHandler.Get(new Hashtable { { "Page", page }, { "State", SearchState.NowPlaying.ToString() } });
             if (searchContainer != null)
@@ -82,13 +78,21 @@ namespace Filmator.Model.Manager {
             return null;
         }
 
-        private SearchContainer<MovieResult> MyMovies(int page, int numberByPage) {
+        private SearchContainer<MovieResult> MyMovies(int page, int numberByPage, string name) {
            var movies  = StoredProvider.GetAll(page);
            return Translator.MoviesStoredToSearchContainerOfMovieResult(movies, page, movies.Count / numberByPage, movies.Count);
+        }
+
+        private SearchContainer<MovieResult> Custom(int page, int numberByPage, string name) {
+            if(name == "")
+                return new SearchContainer<MovieResult>();
+            var res = ResultProvider.GetSearchByMovieName(name, page);
+            return Translator.SearchMoviesToSearchContainerOfMovieResult(res.Results, res.Page, res.TotalPages, res.TotalResults);
         }
 
         public MovieStored Add(MovieStored movie) {
             return StoredProvider.Create(movie);
         }
+
     }
 }

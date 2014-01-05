@@ -136,7 +136,7 @@ namespace Filmator.ViewModel {
         public void SetSearchStateAction(string descriptionState) {
             Page = 1;
             SearchState = EnumsHelper.GetEnumByDescription<SearchState>(descriptionState);
-            SearchContainerOfMovieResult = MovieManager.GetSearchByState(SearchState);
+            SearchContainerOfMovieResult = MovieManager.GetSearchByState(SearchState, Page, CustomSearch);
             MovieListVisibility = Visibility.Visible;
         }
 
@@ -145,6 +145,7 @@ namespace Filmator.ViewModel {
             SelectedGenre = genre;
             if (genre != null) SearchContainerOfMovieResult = GenreManager.GetSearchContainerByGenreId(genre.Id, Page);
         }
+
         #endregion
         #endregion
 
@@ -234,6 +235,13 @@ namespace Filmator.ViewModel {
             get { return _genres; }
             set { _genres = value; RaisePropertyChanged(GenresPropertyName); }
         }
+
+        public const string CustomSearchPropertyName = "CustomSearch";
+        private string _customSearch;
+        public string CustomSearch {
+            get { return _customSearch; }
+            set { _customSearch = value; RaisePropertyChanged(CustomSearchPropertyName); }
+        }
         #endregion
         #endregion
 
@@ -280,6 +288,7 @@ namespace Filmator.ViewModel {
             SearchState = SearchState.NowPlaying;
             SetSearchStateAction(SearchState.ToString());
             Genres = new ObservableCollection<Genre>(GenreManager.GetAll());
+            CustomSearch = "";
         }
 
         ////public override void Cleanup()
