@@ -4,9 +4,21 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:r="clr-namespace:Filmator.Resources.View"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              DataContext="{Binding Main, Source={StaticResource Locator}}"
              mc:Ignorable="d" 
-             d:DesignHeight="30" d:DesignWidth="600">
+             d:DesignHeight="30" d:DesignWidth="600"
+             x:Name="MainHeader">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="MouseLeftButtonDown">
+            <i:InvokeCommandAction Command="{Binding DragMoveCommand}"
+                                               CommandParameter="{
+                Binding RelativeSource={
+                    RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}
+                }
+            }"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <UserControl.Resources>
         <Style x:Key="Layout" TargetType="{x:Type Grid}">
             <Setter Property="Background" Value="#2c3e50"/>
@@ -52,10 +64,10 @@
 
     <Grid Style="{StaticResource Layout}">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="50*"/>
-            <ColumnDefinition Width="3*"/>
-            <ColumnDefinition Width="3*"/>
-            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="30"/>
+            <ColumnDefinition Width="30"/>
+            <ColumnDefinition Width="30"/>
         </Grid.ColumnDefinitions>
 
         <TextBlock Style="{StaticResource Title}" Text="{x:Static r:MainWindow.Title}" Grid.Column="0"/>

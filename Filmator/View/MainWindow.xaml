@@ -6,7 +6,8 @@
         xmlns:r="clr-namespace:Filmator.Resources.View"
         xmlns:UserControls="clr-namespace:Filmator.View.UserControls"
         xmlns:Converters="clr-namespace:Filmator.Converters"
-        xmlns:ignore="http://www.ignore.com" mc:Ignorable="d ignore"
+        xmlns:ignore="http://www.ignore.com" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        mc:Ignorable="d ignore"
         Height="600"
         Width="800"
         WindowStyle="None"
@@ -23,7 +24,7 @@
         </ResourceDictionary>
     </Window.Resources>
 
-    <Grid x:Name="Layout">
+    <Grid Margin="5" x:Name="Layout">
         <Grid.RowDefinitions>
             <RowDefinition Height="30" />
             <RowDefinition Height="75" />

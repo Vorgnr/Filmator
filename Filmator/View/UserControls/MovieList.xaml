@@ -30,11 +30,9 @@
                         <Grid.RowDefinitions>
                             <RowDefinition />
                             <RowDefinition />
-                            <RowDefinition />
                         </Grid.RowDefinitions>
                         <TextBlock Grid.Row="0" Text="{Binding Title}"/>
                         <TextBlock Grid.Row="1" Text="{Binding VoteAverage}"/>
-                        <TextBlock Grid.Row="2" Text="{Binding ReleaseDate}"/>
                     </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>
