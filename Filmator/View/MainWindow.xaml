@@ -20,11 +20,11 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Skins\MainSkin.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <Converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
         </ResourceDictionary>
     </Window.Resources>
 
-    <Grid Margin="5" x:Name="Layout">
+    <Border BorderThickness="5" BorderBrush="{StaticResource MidnightBlue}">
+        <Grid x:Name="Layout">
         <Grid.RowDefinitions>
             <RowDefinition Height="30" />
             <RowDefinition Height="75" />
@@ -56,5 +56,6 @@
         </Grid>
 
         <!-- Row 3 -->
-    </Grid>
+        </Grid>
+    </Border>
 </Window>

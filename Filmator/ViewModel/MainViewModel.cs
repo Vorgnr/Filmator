@@ -108,13 +108,13 @@ namespace Filmator.ViewModel {
 
         public void IncrementPageAction() {
             Page++;
-            SearchContainerOfMovieResult = MovieManager.GetSearchByState(SearchState, Page);
+            SearchContainerOfMovieResult = SearchState == SearchState.Genre ? GenreManager.GetSearchContainerByGenreId(SelectedGenre.Id, Page) : MovieManager.GetSearchByState(SearchState, Page);
             IncrementPageCommand.RaiseCanExecuteChanged();
         }
 
         public void DecrementPageAction() {
             Page--;
-            SearchContainerOfMovieResult = MovieManager.GetSearchByState(SearchState, Page);
+            SearchContainerOfMovieResult = SearchState == SearchState.Genre ? GenreManager.GetSearchContainerByGenreId(SelectedGenre.Id, Page) : MovieManager.GetSearchByState(SearchState, Page);
             DecrementPageCommand.RaiseCanExecuteChanged();
         }
 
@@ -141,7 +141,9 @@ namespace Filmator.ViewModel {
         }
 
         public void SetSelectedGenreAction(object arg) {
+            Page = 1;
             var genre = arg as Genre;
+            SearchState = SearchState.Genre;
             SelectedGenre = genre;
             if (genre != null) SearchContainerOfMovieResult = GenreManager.GetSearchContainerByGenreId(genre.Id, Page);
         }
