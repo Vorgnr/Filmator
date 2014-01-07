@@ -42,6 +42,8 @@
             <Setter Property="Foreground" Value="White" />
             <Setter Property="BorderBrush" Value="#2980b9"/>
             <Setter Property="Background" Value="#2980b9"/>
+            <Setter Property="Width" Value="80"/>
+            <Setter Property="Margin" Value="0,2,2,2"/>
         </Style>
         
         <Style x:Key="SearchButton" TargetType="{x:Type Button}">
@@ -74,6 +76,8 @@
             <Setter Property="Foreground" Value="White" />
             <Setter Property="BorderBrush" Value="#2980b9"/>
             <Setter Property="Background" Value="#2980b9"/>
+            <Setter Property="Width" Value="80"/>
+            <Setter Property="Margin" Value="0,2,2,2"/>
 
             <Setter Property="Command" Value="{Binding SetSearchStateCommand}"/>
             <Setter Property="CommandParameter" Value="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Tag}"/>
@@ -94,24 +98,18 @@
 
     <StackPanel Grid.Row="1" Orientation="Horizontal">
         <Grid>
-            <Button Tag="NowPlaying" Style="{StaticResource SearchButton}">
-                <TextBlock Text="{x:Static r:MainWindow.Actual}"/>
+            <Button x:Name="width" Tag="NowPlaying" Style="{StaticResource SearchButton}" Margin="2,2,2,2">
+                <TextBlock TextAlignment="Center" TextWrapping="Wrap" Text="{x:Static r:MainWindow.Actual}"/>
             </Button>
         </Grid>
         <Grid>
             <Button Tag="Popular" Style="{StaticResource SearchButton}">
-                <TextBlock Text="{x:Static r:MainWindow.Popular}" />
+                <TextBlock TextAlignment="Center" TextWrapping="Wrap" Text="{x:Static r:MainWindow.Popular}" />
             </Button>
         </Grid>
         <Grid>
-            <Button
-                    Tag="TopRated" Style="{StaticResource SearchButton}">
+            <Button Tag="TopRated" Style="{StaticResource SearchButton}">
                 <TextBlock Text="{x:Static r:MainWindow.Best}" />
-            </Button>
-        </Grid>
-        <Grid>
-            <Button Command="{Binding ToggleGenreListVisibilityCommand}">
-                <TextBlock Text="{x:Static r:MainWindow.Genre}" />
             </Button>
         </Grid>
         <Grid>
@@ -120,12 +118,12 @@
             </Button>
         </Grid>
         <Grid>
-            <Button Command="{Binding ToggleSearchVisibilityCommand}">
-                <TextBlock Text="{x:Static r:MainWindow.Search}" />
+            <Button Command="{Binding ToggleGenreListVisibilityCommand}">
+                <TextBlock TextAlignment="Center" TextWrapping="Wrap" Text="{x:Static r:MainWindow.Genre}" />
             </Button>
         </Grid>
         <Grid>
-            <Control:Search Visibility="{Binding SearchVisibility}"/>
+            <Control:Search/>
         </Grid>
     </StackPanel>
 </UserControl>

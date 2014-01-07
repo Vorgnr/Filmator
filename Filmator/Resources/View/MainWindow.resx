@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Actual" xml:space="preserve">
-    <value>Actuellement au cinéma</value>
+    <value>Dernières sorties</value>
   </data>
   <data name="AddToMyMovies" xml:space="preserve">
     <value>Ajouter à ma filmothèque</value>
@@ -136,13 +136,13 @@
     <value>Fichier</value>
   </data>
   <data name="Genre" xml:space="preserve">
-    <value>Genre</value>
+    <value>Afficher les genres</value>
   </data>
   <data name="MyMovies" xml:space="preserve">
-    <value>Ma collection</value>
+    <value>Mes films</value>
   </data>
   <data name="Popular" xml:space="preserve">
-    <value>Films populaires</value>
+    <value>Populaires</value>
   </data>
   <data name="Search" xml:space="preserve">
     <value>Rechercher</value>
