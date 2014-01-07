@@ -41,19 +41,26 @@
         <!-- Row 2 -->
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="2*"/>
             </Grid.ColumnDefinitions>
             <!--Visibility="{Binding IsBusy, Converter={StaticResource BoolToVisibilityConverter}}"-->
+                <Border BorderThickness="0,5,5,5" BorderBrush="#2c3e50" Grid.Column="0">
 
-            <!-- Column 0 -->
-            <UserControls:MovieList Grid.Column="0" Visibility="{Binding MovieListVisibility}"/>
-            
-            <!-- Column 1 -->
-            <UserControls:SelectedMovie Grid.Column="1" Visibility="{Binding SelectedMovieVisibility}"/>
+                    <!-- Column 0 -->
+                    <UserControls:MovieList Grid.Column="0" Visibility="{Binding MovieListVisibility}"/>
+                </Border>
 
-            <UserControls:GenreList Grid.Column="1" Visibility="{Binding GenreListVisibility}"/>
-        </Grid>
+                <Border BorderThickness="0,5,0,5" BorderBrush="#2c3e50" Grid.Column="1">
+
+                    <!-- Column 1 -->
+                    <UserControls:SelectedMovie Grid.Column="1" Visibility="{Binding SelectedMovieVisibility}"/>
+                </Border>
+                <Border BorderThickness="0,5,0,5" BorderBrush="#2c3e50" Grid.Column="1">
+
+                    <UserControls:GenreList Grid.Column="1" Visibility="{Binding GenreListVisibility}"/>
+                </Border>
+            </Grid>
 
         <!-- Row 3 -->
         </Grid>
