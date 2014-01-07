@@ -15,13 +15,11 @@ namespace Filmator.Model.Cache {
         public SearchContainerCacheHandler() {
             CachePath = Path.GetFullPath(_path);
             Directory.CreateDirectory(Path.GetDirectoryName(CachePath));
-            if (!File.Exists(CachePath))
-                File.Create(CachePath);
             _currentList = GetCurrentList();
         }
 
         private CacheList GetCurrentList() {
-            using (var fs = File.Open(CachePath, FileMode.OpenOrCreate, FileAccess.Read, FileShare.None))
+            using (var fs = File.Open(CachePath, FileMode.OpenOrCreate, FileAccess.Read))
             using (var sr = new StreamReader(fs))
             using (var jr = new JsonTextReader(sr)) {
                 var serializer = new JsonSerializer();
