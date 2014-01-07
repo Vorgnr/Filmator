@@ -8,7 +8,6 @@ namespace Filmator.Model.Manager {
             return new GenreProvider().GetAll();
         }
 
-
         public SearchContainer<MovieResult> GetSearchContainerByGenreId(int id, int page) {
             return new SearchMovieProvider().GetByGenreId(id, page);
         }
