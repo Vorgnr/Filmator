@@ -108,13 +108,13 @@ namespace Filmator.ViewModel {
 
         public void IncrementPageAction() {
             Page++;
-            //SearchContainerOfMovieResult = SearchState == SearchState.Genre ? GenreManager.GetSearchContainerByGenreId(SelectedGenre.Id, Page) : MovieManager.GetSearchByState(SearchState, Page);
+            SearchContainerOfMovieResult = SearchState == SearchState.Genre ? GenreManager.GetSearchContainerByGenreId(SelectedGenre.Id, Page) : MovieManager.GetSearchByState(SearchState, Page);
             IncrementPageCommand.RaiseCanExecuteChanged();
         }
 
         public void DecrementPageAction() {
             Page--;
-            //SearchContainerOfMovieResult = SearchState == SearchState.Genre ? GenreManager.GetSearchContainerByGenreId(SelectedGenre.Id, Page) : MovieManager.GetSearchByState(SearchState, Page);
+            SearchContainerOfMovieResult = SearchState == SearchState.Genre ? GenreManager.GetSearchContainerByGenreId(SelectedGenre.Id, Page) : MovieManager.GetSearchByState(SearchState, Page);
             DecrementPageCommand.RaiseCanExecuteChanged();
         }
 
@@ -130,13 +130,13 @@ namespace Filmator.ViewModel {
             SelectedMovieVisibility = Visibility.Visible;
             GenreListVisibility = Visibility.Hidden;
             var movie = arg as MovieResult;
-            //if (movie != null) SelectedMovie = MovieManager.GetMovieStoredById(movie.Id);
+            if (movie != null) SelectedMovie = MovieManager.GetMovieById(movie.Id);
         }
 
         public void SetSearchStateAction(string descriptionState) {
             Page = 1;
             SearchState = EnumsHelper.GetEnumByDescription<SearchState>(descriptionState);
-            //SearchContainerOfMovieResult = MovieManager.GetSearchByState(SearchState, Page, CustomSearch);
+            SearchContainerOfMovieResult = MovieManager.GetSearchByState(SearchState, Page, CustomSearch);
             MovieListVisibility = Visibility.Visible;
         }
 

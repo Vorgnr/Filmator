@@ -25,37 +25,37 @@
 
     <Border BorderThickness="5" BorderBrush="{StaticResource MidnightBlue}">
         <Grid x:Name="Layout">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="30" />
-            <RowDefinition Height="75" />
-            <RowDefinition />
-            <RowDefinition Height="30" />
-        </Grid.RowDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30" />
+                <RowDefinition Height="75" />
+                <RowDefinition />
+                <RowDefinition Height="30" />
+            </Grid.RowDefinitions>
 
-        <!-- Row 0 -->
-        <UserControls:Header Grid.Row="0"/>
+            <!-- Row 0 -->
+            <UserControls:Header Grid.Row="0"/>
 
-        <!-- Row 1 -->
-        <UserControls:NavigationBar Grid.Row="1"/>
+            <!-- Row 1 -->
+            <UserControls:NavigationBar Grid.Row="1"/>
 
-        <!-- Row 2 -->
-        <Grid Grid.Row="2">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <!--Visibility="{Binding IsBusy, Converter={StaticResource BoolToVisibilityConverter}}"-->
+            <!-- Row 2 -->
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+                <!--Visibility="{Binding IsBusy, Converter={StaticResource BoolToVisibilityConverter}}"-->
 
-            <!-- Column 0 -->
-            <UserControls:MovieList Grid.Column="0" Visibility="{Binding MovieListVisibility}"/>
-            
-            <!-- Column 1 -->
-            <UserControls:SelectedMovie Grid.Column="1" Visibility="{Binding SelectedMovieVisibility}"/>
+                <!-- Column 0 -->
+                <UserControls:MovieList Grid.Column="0" Visibility="{Binding MovieListVisibility}"/>
 
-            <UserControls:GenreList Grid.Column="1" Visibility="{Binding GenreListVisibility}"/>
-        </Grid>
+                <!-- Column 1 -->
+                <UserControls:SelectedMovie Grid.Column="1" Visibility="{Binding SelectedMovieVisibility}"/>
 
-        <!-- Row 3 -->
+                <UserControls:GenreList Grid.Column="1" Visibility="{Binding GenreListVisibility}"/>
+            </Grid>
+
+            <!-- Row 3 -->
         </Grid>
     </Border>
 </Window>

@@ -26,7 +26,7 @@ namespace Filmator.Model.Manager {
             return (SearchContainer<MovieResult>)callback(this , new object[] {page, numberByPage, name});
         }
 
-        public Movie GetMovieStoredById(int id) {
+        public Movie GetMovieById(int id) {
             var cacheHandler = CacheHandlerFactory.GetCacheHandler<Movie>();
             var movie = cacheHandler.Get(id);
             if (movie != null)
