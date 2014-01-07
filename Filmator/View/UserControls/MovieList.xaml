@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:r="clr-namespace:Filmator.Resources.View"
              DataContext="{Binding Main, Source={StaticResource Locator}}"
              mc:Ignorable="d" 
              d:DesignHeight="400" d:DesignWidth="400">
@@ -18,10 +19,25 @@
             <Button Background="#95a5a6" Margin="2,2,2,2" Content="next" Command="{Binding IncrementPageCommand}"/>
         </StackPanel>
         <ListBox Grid.Row="1" x:Name="MoviesResultsListBox" ItemsSource="{Binding SearchContainerOfMovieResult.Results}">
+            <ListBox.Style>
+                <Style TargetType="ItemsControl">
+                    <Style.Triggers>
+                        <Trigger Property="HasItems" Value="false">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate>
+                                        <TextBlock Text="{x:Static r:MainWindow.EmptyResult}"/>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </ListBox.Style>
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="SelectionChanged">
                     <i:InvokeCommandAction Command="{Binding SetSelectedMovieCommand}"
-                                           CommandParameter="{Binding ElementName=MoviesResultsListBox,Path=SelectedItem}"/>               
+                                           CommandParameter="{Binding ElementName=MoviesResultsListBox,Path=SelectedItem}"/>           
                 </i:EventTrigger>
             </i:Interaction.Triggers>
             <ListBox.ItemTemplate>

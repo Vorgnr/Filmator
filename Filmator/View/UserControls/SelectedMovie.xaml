@@ -11,18 +11,18 @@
         <Brush x:Key="MidnightBlue">#2c3e50</Brush>
     </UserControl.Resources>
 
-        <Grid>
-            <Grid.RowDefinitions>
+    <Grid>
+        <Grid.RowDefinitions>
                 <RowDefinition Height="25"/>
-                <RowDefinition Height="30" />
-                <RowDefinition Height="30" />
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        
             <TextBlock TextAlignment="Center" Grid.Row="1" FontSize="25" Text="{Binding SelectedMovie.Title}"/>
             <Button Grid.Row="2" 
                 Content="{x:Static r:MainWindow.AddToMyMovies}"
                 Command="{Binding AddToMyMoviesCommand}"
-                CommandParameter="{Binding SelectedMovie.RemoteID}"/>
-        </Grid>
+                CommandParameter="{Binding SelectedMovie.Id}"/>
+    </Grid>
 </UserControl>

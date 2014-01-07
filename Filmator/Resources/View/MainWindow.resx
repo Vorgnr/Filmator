@@ -126,6 +126,9 @@
   <data name="Best" xml:space="preserve">
     <value>Mieux notés</value>
   </data>
+  <data name="EmptyResult" xml:space="preserve">
+    <value>Aucun résultat ou le serveur distant n'a pu être atteint</value>
+  </data>
   <data name="Exit" xml:space="preserve">
     <value>Quitter</value>
   </data>

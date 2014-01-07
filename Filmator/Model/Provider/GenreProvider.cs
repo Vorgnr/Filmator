@@ -10,6 +10,8 @@ namespace Filmator.Model.Provider {
             _clientApi = new TMDbClient(ConfigurationManager.AppSettings["ApiKey"]);
         }
         public List<Genre> GetAll() {
+            if (_clientApi == null)
+                return null;
             return _clientApi.GetGenres();
         } 
     }

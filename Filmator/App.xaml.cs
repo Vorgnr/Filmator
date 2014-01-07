@@ -9,7 +9,7 @@ namespace Filmator {
     /// </summary>
     public partial class App : Application {
         static App() {
-            //Database.SetInitializer<FilmatorContext>(new DropCreateDatabaseAlways<FilmatorContext>());
+            Database.SetInitializer<FilmatorContext>(new DropCreateDatabaseAlways<FilmatorContext>());
             DispatcherHelper.Initialize();
         }
     }
