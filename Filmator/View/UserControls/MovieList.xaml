@@ -13,9 +13,9 @@
             <RowDefinition />
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" Grid.Row="0">
-            <Button Content="-" Command="{Binding DecrementPageCommand}"/>
-            <TextBlock Text="{Binding Page}"/>
-            <Button Content="+" Command="{Binding IncrementPageCommand}"/>
+            <Button Background="#95a5a6" Margin="2,2,2,2" Content="previous" Command="{Binding DecrementPageCommand}"/>
+            <TextBlock Margin="0,2,2,0" Padding="3" Text="{Binding Page}"/>
+            <Button Background="#95a5a6" Margin="2,2,2,2" Content="next" Command="{Binding IncrementPageCommand}"/>
         </StackPanel>
         <ListBox Grid.Row="1" x:Name="MoviesResultsListBox" ItemsSource="{Binding SearchContainerOfMovieResult.Results}">
             <i:Interaction.Triggers>
