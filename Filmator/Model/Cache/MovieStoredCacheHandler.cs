@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Filmator.Model.Entities;
 using Newtonsoft.Json;
+using TMDbLib.Objects.Movies;
 
 namespace Filmator.Model.Cache {
-    class MovieStoredCacheHandler : ICache<MovieStored> {
-        public const string _path = "Cache/MovieStored.json";
+    class MovieStoredCacheHandler : ICache<Movie> {
+        public const string _path = "Cache/Movie.json";
         public string CachePath { get; set; }
         private CacheList _currentList;
 
@@ -17,25 +17,25 @@ namespace Filmator.Model.Cache {
             _currentList = GetCurrentList();
         }
 
-        public bool Exist(MovieStored obj) {
-            return _currentList.Items.Any(item => item.MovieStored.RemoteID == obj.RemoteID);
+        public bool Exist(Movie obj) {
+            return _currentList.Items.Any(item => item.Movie.Id == obj.Id);
         }
 
-        public MovieStored Get(object id) {
-            var item = _currentList.Items.FirstOrDefault(i => i.MovieStored.RemoteID == (int) id);
+        public Movie Get(object id) {
+            var item = _currentList.Items.FirstOrDefault(i => i.Movie.Id == (int) id);
             if (item == null)
                 return null;
             if (item.IsExpired()) {
                 _currentList.Items.Remove(item);
                 return null;
             }
-            return item.MovieStored;
+            return item.Movie;
         }
 
-        public void Add(MovieStored obj, DateTime expirationDate, string state = "") {
+        public void Add(Movie obj, DateTime expirationDate, string state = "") {
             var serializer = new JsonSerializer();
             _currentList.Items.Add(new CacheItem {
-                MovieStored = obj,
+                Movie = obj,
                 ExpirationDate = expirationDate
             });
             using (var fs = File.Open(CachePath, FileMode.OpenOrCreate))
@@ -66,7 +66,7 @@ namespace Filmator.Model.Cache {
     }
 
     class CacheItem {
-        public MovieStored MovieStored { get; set; }
+        public Movie Movie { get; set; }
         public DateTime ExpirationDate { get; set; }
         public bool IsExpired() {
             return DateTime.Now > ExpirationDate;

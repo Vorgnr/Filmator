@@ -1,7 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
-using Filmator.Model.Entities;
 using Filmator.Model.Enums;
 using Filmator.Model.Manager;
 using Filmator.Model.Utils;
@@ -9,6 +8,7 @@ using GalaSoft.MvvmLight;
 using Filmator.Model;
 using GalaSoft.MvvmLight.Command;
 using TMDbLib.Objects.General;
+using TMDbLib.Objects.Movies;
 
 namespace Filmator.ViewModel {
     /// <summary>
@@ -97,9 +97,9 @@ namespace Filmator.ViewModel {
         #endregion
         #region Query
         public void AddToMyMoviesAction(int id) {
-            var movie = MovieManager.GetMovieStoredById(id);
-            if (movie != null)
-                MovieManager.Add(movie);
+            //var movie = MovieManager.GetMovieStoredById(id);
+            //if (movie != null)
+            //    //MovieManager.Add(movie);
         }
 
         public bool CanAddToMyMovies(int id) {
@@ -108,13 +108,13 @@ namespace Filmator.ViewModel {
 
         public void IncrementPageAction() {
             Page++;
-            SearchContainerOfMovieResult = SearchState == SearchState.Genre ? GenreManager.GetSearchContainerByGenreId(SelectedGenre.Id, Page) : MovieManager.GetSearchByState(SearchState, Page);
+            //SearchContainerOfMovieResult = SearchState == SearchState.Genre ? GenreManager.GetSearchContainerByGenreId(SelectedGenre.Id, Page) : MovieManager.GetSearchByState(SearchState, Page);
             IncrementPageCommand.RaiseCanExecuteChanged();
         }
 
         public void DecrementPageAction() {
             Page--;
-            SearchContainerOfMovieResult = SearchState == SearchState.Genre ? GenreManager.GetSearchContainerByGenreId(SelectedGenre.Id, Page) : MovieManager.GetSearchByState(SearchState, Page);
+            //SearchContainerOfMovieResult = SearchState == SearchState.Genre ? GenreManager.GetSearchContainerByGenreId(SelectedGenre.Id, Page) : MovieManager.GetSearchByState(SearchState, Page);
             DecrementPageCommand.RaiseCanExecuteChanged();
         }
 
@@ -130,13 +130,13 @@ namespace Filmator.ViewModel {
             SelectedMovieVisibility = Visibility.Visible;
             GenreListVisibility = Visibility.Hidden;
             var movie = arg as MovieResult;
-            if (movie != null) SelectedMovie = MovieManager.GetMovieStoredById(movie.Id);
+            //if (movie != null) SelectedMovie = MovieManager.GetMovieStoredById(movie.Id);
         }
 
         public void SetSearchStateAction(string descriptionState) {
             Page = 1;
             SearchState = EnumsHelper.GetEnumByDescription<SearchState>(descriptionState);
-            SearchContainerOfMovieResult = MovieManager.GetSearchByState(SearchState, Page, CustomSearch);
+            //SearchContainerOfMovieResult = MovieManager.GetSearchByState(SearchState, Page, CustomSearch);
             MovieListVisibility = Visibility.Visible;
         }
 
@@ -204,8 +204,8 @@ namespace Filmator.ViewModel {
         }
 
         public const string SelectedMoviePropertyName = "SelectedMovie";
-        private MovieStored _selectedMovie;
-        public MovieStored SelectedMovie {
+        private Movie _selectedMovie;
+        public Movie SelectedMovie {
             get { return _selectedMovie; }
             set { _selectedMovie = value; RaisePropertyChanged(SelectedMoviePropertyName); }
         }

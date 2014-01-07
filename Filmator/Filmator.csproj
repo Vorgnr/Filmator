@@ -97,7 +97,6 @@
     <Compile Include="Model\Cache\SearchContainerCacheHandler.cs" />
     <Compile Include="Model\DataItem.cs" />
     <Compile Include="Model\DataService.cs" />
-    <Compile Include="Model\Entities\MovieStored.cs" />
     <Compile Include="Model\Enums\SearchState.cs" />
     <Compile Include="Model\FilmatorContext.cs" />
     <Compile Include="Model\IDataService.cs" />
@@ -211,6 +210,7 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Model\Entities\" />
     <Folder Include="View\Controls\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

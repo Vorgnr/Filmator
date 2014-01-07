@@ -1,5 +1,4 @@
 ﻿using System.Configuration;
-using Filmator.Model.Entities;
 using Filmator.Model.Utils;
 using TMDbLib.Client;
 using TMDbLib.Objects.General;
@@ -13,10 +12,10 @@ namespace Filmator.Model.Provider {
             _clientApi = new TMDbClient(ConfigurationManager.AppSettings["ApiKey"]);
         }
 
-        public MovieStored GetById(int id) {
+        public Movie GetById(int id) {
             if (_clientApi == null)
                 return null;
-            return Translator.RemoteMovieToMovieStored(_clientApi.GetMovie(id));
+            return _clientApi.GetMovie(id);
         }
 
         public SearchContainer<SearchMovie> GetSearchByMovieName(string name, int page) {

@@ -2,11 +2,11 @@
 using System.Collections;
 using System.Reflection;
 using Filmator.Model.Cache;
-using Filmator.Model.Entities;
 using Filmator.Model.Enums;
 using Filmator.Model.Provider;
 using Filmator.Model.Utils;
 using TMDbLib.Objects.General;
+using TMDbLib.Objects.Movies;
 
 namespace Filmator.Model.Manager {
     public class MovieManager : IMovieManager {
@@ -26,8 +26,8 @@ namespace Filmator.Model.Manager {
             return (SearchContainer<MovieResult>)callback(this , new object[] {page, numberByPage, name});
         }
 
-        public MovieStored GetMovieStoredById(int id) {
-            var cacheHandler = CacheHandlerFactory.GetCacheHandler<MovieStored>();
+        public Movie GetMovieStoredById(int id) {
+            var cacheHandler = CacheHandlerFactory.GetCacheHandler<Movie>();
             var movie = cacheHandler.Get(id);
             if (movie != null)
                 return movie;
@@ -79,8 +79,8 @@ namespace Filmator.Model.Manager {
         }
 
         private SearchContainer<MovieResult> MyMovies(int page, int numberByPage, string name) {
-           var movies  = StoredProvider.GetAll(page);
-           return Translator.MoviesStoredToSearchContainerOfMovieResult(movies, page, movies.Count / numberByPage, movies.Count);
+           //var movies  = StoredProvider.GetAll(page);
+            return null;// Translator.MoviesStoredToSearchContainerOfMovieResult(movies, page, movies.Count / numberByPage, movies.Count);
         }
 
         private SearchContainer<MovieResult> Custom(int page, int numberByPage, string name) {
@@ -90,9 +90,9 @@ namespace Filmator.Model.Manager {
             return Translator.SearchMoviesToSearchContainerOfMovieResult(res.Results, res.Page, res.TotalPages, res.TotalResults);
         }
 
-        public MovieStored Add(MovieStored movie) {
-            return StoredProvider.Create(movie);
-        }
+        //public MovieStored Add(MovieStored movie) {
+        //    return StoredProvider.Create(movie);
+        //}
 
     }
 }

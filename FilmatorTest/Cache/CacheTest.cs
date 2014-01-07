@@ -3,10 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using Filmator.Model.Cache;
-using Filmator.Model.Entities;
 using Filmator.Model.Enums;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TMDbLib.Objects.General;
+using TMDbLib.Objects.Movies;
 
 namespace FilmatorTest.Cache {
     [TestClass]
@@ -26,16 +26,14 @@ namespace FilmatorTest.Cache {
 
         [TestMethod]
         public void CacheAdd() {
-            var cache = CacheHandlerFactory.GetCacheHandler<MovieStored>();
-            var movie = new MovieStored {
-                ID = 5,
+            var cache = CacheHandlerFactory.GetCacheHandler<Movie>();
+            var movie = new Movie {
+                Id = 5,
                 ImdbId = "2545",
                 Title = "Jean Jean",
-                RemoteID = 25,
                 Status = "cool",
                 Adult = false,
                 Overview = "bla bla bla bla bla bla",
-                Seen = true
             };
             cache.Add(movie, DateTime.Now.AddMonths(2));
         }
