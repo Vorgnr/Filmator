@@ -63,6 +63,7 @@
         </Grid>
 
         <!-- Row 3 -->
+        <TextBlock Grid.Row="3" Text="© Filmator 2014" Padding="5" HorizontalAlignment="Right"/>
         </Grid>
     </Border>
 </Window>
