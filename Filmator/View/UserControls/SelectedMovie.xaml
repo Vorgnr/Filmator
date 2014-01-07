@@ -7,9 +7,6 @@
              DataContext="{Binding Main, Source={StaticResource Locator}}"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <UserControl.Resources>
-        <Brush x:Key="MidnightBlue">#2c3e50</Brush>
-    </UserControl.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
