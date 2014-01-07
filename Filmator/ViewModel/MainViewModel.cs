@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
+using Filmator.Model.Entities;
 using Filmator.Model.Enums;
 using Filmator.Model.Manager;
 using Filmator.Model.Utils;
@@ -32,9 +33,9 @@ namespace Filmator.ViewModel {
         public ICommand ToggleGenreListVisibilityCommand { get; set; }
         #endregion
 
-        public RelayCommand<object> DragMoveCommand { get; set; } 
+        public RelayCommand<object> DragMoveCommand { get; set; }
         public RelayCommand<object> SetSelectedMovieCommand { get; set; }
-        public RelayCommand<object> SetSelectedGenreCommand { get; set; } 
+        public RelayCommand<object> SetSelectedGenreCommand { get; set; }
         public RelayCommand<string> SetSearchStateCommand { get; set; }
         public ICommand GetPopularMoviesCommand { get; set; }
         public RelayCommand IncrementPageCommand { get; private set; }
@@ -42,7 +43,7 @@ namespace Filmator.ViewModel {
         public RelayCommand<object> CloseWindowCommand { get; set; }
         public RelayCommand<object> ToggleMaximizedWindowStateCommand { get; set; }
         public RelayCommand<object> SetMinimizeWindowStateCommand { get; set; }
-        public RelayCommand<int> AddToMyMoviesCommand{get;set;} 
+        public RelayCommand<int> AddToMyMoviesCommand { get; set; }
         #endregion
 
         #region Actions
@@ -97,9 +98,11 @@ namespace Filmator.ViewModel {
         #endregion
         #region Query
         public void AddToMyMoviesAction(int id) {
-            //var movie = MovieManager.GetMovieStoredById(id);
-            //if (movie != null)
-            //    //MovieManager.Add(movie);
+            if (SelectedMovie != null)
+                MovieManager.Add(new MovieInfo{
+                    RemoteId = SelectedMovie.Id, 
+                    Title = SelectedMovie.Title
+                });
         }
 
         public bool CanAddToMyMovies(int id) {
@@ -130,7 +133,8 @@ namespace Filmator.ViewModel {
             SelectedMovieVisibility = Visibility.Visible;
             GenreListVisibility = Visibility.Hidden;
             var movie = arg as MovieResult;
-            if (movie != null) SelectedMovie = MovieManager.GetMovieById(movie.Id);
+            if (movie != null)
+                SelectedMovie = MovieManager.GetMovieById(movie.Id);
         }
 
         public void SetSearchStateAction(string descriptionState) {
@@ -145,7 +149,8 @@ namespace Filmator.ViewModel {
             var genre = arg as Genre;
             SearchState = SearchState.Genre;
             SelectedGenre = genre;
-            if (genre != null) SearchContainerOfMovieResult = GenreManager.GetSearchContainerByGenreId(genre.Id, Page);
+            if (genre != null)
+                SearchContainerOfMovieResult = GenreManager.GetSearchContainerByGenreId(genre.Id, Page);
         }
 
         #endregion

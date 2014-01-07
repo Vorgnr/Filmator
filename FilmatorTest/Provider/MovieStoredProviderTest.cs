@@ -11,20 +11,20 @@ namespace FilmatorTest.Provider {
             //    Title = "prout",
             //    RemoteID = 25
             //};
-            var movieProvider = new MovieStoredProvider();
+            var movieProvider = new MovieInfoProvider();
             //Assert.AreEqual(movie, movieProvider.Create(movie));
         }
 
         [TestMethod]
         public void TestGetAll() {
-            var movieProvider = new MovieStoredProvider();
+            var movieProvider = new MovieInfoProvider();
             //var movies = movieProvider.GetAll(1);
             //Assert.IsNotNull(movies);
         }
 
         [TestMethod]
         public void TestGetByRemoteId() {
-            var movieProvider = new MovieStoredProvider();
+            var movieProvider = new MovieInfoProvider();
             //var movie = movieProvider.GetByRemoteId(25);
             //Assert.IsNotNull(movie);
             //Assert.AreEqual(25, movie.RemoteID);
@@ -33,7 +33,7 @@ namespace FilmatorTest.Provider {
 
         [TestMethod]
         public void TestUpdate() {
-            var movieProvider = new MovieStoredProvider();
+            var movieProvider = new MovieInfoProvider();
             //var movie = movieProvider.GetByRemoteId(25);
             //Assert.IsNotNull(movie);
             const string newTitle = "Okeyyy";

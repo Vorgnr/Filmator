@@ -97,6 +97,7 @@
     <Compile Include="Model\Cache\SearchContainerCacheHandler.cs" />
     <Compile Include="Model\DataItem.cs" />
     <Compile Include="Model\DataService.cs" />
+    <Compile Include="Model\Entities\MovieInfo.cs" />
     <Compile Include="Model\Enums\SearchState.cs" />
     <Compile Include="Model\FilmatorContext.cs" />
     <Compile Include="Model\IDataService.cs" />
@@ -108,7 +109,7 @@
     <Compile Include="Model\Provider\GenreProvider.cs" />
     <Compile Include="Model\Provider\SearchMovieProvider.cs" />
     <Compile Include="Model\Provider\IProvider.cs" />
-    <Compile Include="Model\Provider\MovieStoredProvider.cs" />
+    <Compile Include="Model\Provider\MovieInfoProvider.cs" />
     <Compile Include="Model\SearchContainerService.cs" />
     <Compile Include="Model\Utils\EnumsHelper.cs" />
     <Compile Include="Model\Utils\FastDelegates.cs" />
@@ -210,7 +211,6 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Model\Entities\" />
     <Folder Include="View\Controls\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

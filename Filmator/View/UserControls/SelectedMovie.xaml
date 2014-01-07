@@ -18,6 +18,6 @@
         <Button Grid.Row="1" 
                 Content="{x:Static r:MainWindow.AddToMyMovies}"
                 Command="{Binding AddToMyMoviesCommand}"
-                CommandParameter="{Binding SelectedMovie.RemoteID}"/>
+                CommandParameter="{Binding SelectedMovie.Id}"/>
     </Grid>
 </UserControl>
