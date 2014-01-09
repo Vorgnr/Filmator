@@ -10,16 +10,69 @@
 
     <Grid>
         <Grid.RowDefinitions>
-                <RowDefinition Height="25"/>
+            <RowDefinition Height="25"/>
             <RowDefinition Height="30" />
             <RowDefinition Height="30" />
             <RowDefinition/>
         </Grid.RowDefinitions>
-        
-            <TextBlock TextAlignment="Center" Grid.Row="1" FontSize="25" Text="{Binding SelectedMovie.Title}"/>
-            <Button Grid.Row="2" 
-                Content="{x:Static r:MainWindow.AddToMyMovies}"
-                Command="{Binding AddToMyMoviesCommand}"
-                CommandParameter="{Binding SelectedMovie.Id}"/>
+
+        <TextBlock TextAlignment="Center" Grid.Row="1" FontSize="25" Text="{Binding SelectedMovie.Title}"/>
+        <Button Grid.Row="2" 
+            Content="{x:Static r:MainWindow.AddToMyMovies}"
+            Command="{Binding AddToMyMoviesCommand}"
+            CommandParameter="{Binding SelectedMovie.Id}"/>
+
+        <Grid Background="#ecf0f1" Grid.Row="3">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="Auto"/>
+
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="25"/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="25"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel DataContext="{Binding SelectedMovie}" Grid.Row="1" Grid.Column="1" Orientation="Vertical">
+                <TextBlock 
+                    Foreground="#ecf0f1"
+                    Background="#3498db"
+                    Padding="10"
+                    Text="Overview" />
+                <Border Margin="0,0,0,4" BorderThickness="2,0,2,2" BorderBrush="#2c3e50">
+                    <TextBlock
+                        Padding="10"
+                        TextWrapping="Wrap"
+                        Text="{Binding Overview}" 
+                        Background="#ecf0f1"/>
+                </Border>
+                <TextBlock 
+                    Foreground="#ecf0f1"
+                    Background="#3498db"
+                    Padding="10"
+                    Text="Genres" />
+                <Border BorderThickness="2,0,2,2" BorderBrush="#2c3e50">
+                    <ItemsControl ItemsSource="{Binding Genres}">
+                        <ItemsControl.Template>
+                            <ControlTemplate>
+                                <WrapPanel  Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" 
+                                    FlowDirection="LeftToRight" IsItemsHost="true">
+                                </WrapPanel>
+                            </ControlTemplate>
+                        </ItemsControl.Template>
+                        <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Padding="5">
+                                        <TextBlock Text="{Binding Name}"/>
+                                    </Border>
+                                </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </Border>
+            </StackPanel>
+
+        </Grid>
     </Grid>
 </UserControl>

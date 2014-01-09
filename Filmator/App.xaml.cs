@@ -1,6 +1,4 @@
-﻿using System.Data.Entity;
-using System.Windows;
-using Filmator.Model;
+﻿using System.Windows;
 using GalaSoft.MvvmLight.Threading;
 
 namespace Filmator {
