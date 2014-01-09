@@ -16,8 +16,8 @@
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="30"/>
         </Grid.ColumnDefinitions>
-        <TextBlock Margin="0,2,2,2" Width="205" Grid.ColumnSpan="2" Text="Recherche" TextAlignment="Center" Background="#95a5a6" Foreground="White" Padding="10"/>
-        <TextBox  Margin="0,2,2,2" Width="175" Grid.Column="0" Grid.Row="1" Text="{Binding CustomSearch, Mode=TwoWay}"/>
-        <Button Margin="0,2,2,2" Tag="Custom" Command="{Binding SetSearchStateCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Tag}" Grid.Column="1" Grid.Row="1"/>
+        <TextBlock Margin="0,2,2,1" Width="205" Grid.ColumnSpan="2" Text="Recherche" TextAlignment="Center" Background="#95a5a6" Foreground="White" Padding="10"/>
+        <TextBox  Margin="0,1,2,2" Width="175" Grid.Column="0" Grid.Row="1" Text="{Binding CustomSearch, Mode=TwoWay}"/>
+        <Button Margin="0,1,2,2" Tag="Custom" Command="{Binding SetSearchStateCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Tag}" Grid.Column="1" Grid.Row="1"/>
     </Grid>
 </UserControl>

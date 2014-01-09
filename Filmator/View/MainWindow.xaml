@@ -25,47 +25,48 @@
 
     <Border BorderThickness="5" BorderBrush="{StaticResource MidnightBlue}">
         <Grid x:Name="Layout">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="30" />
-                <RowDefinition Height="75" />
-                <RowDefinition />
-                <RowDefinition Height="30" />
-            </Grid.RowDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30" />
+            <RowDefinition Height="75" />
+            <RowDefinition />
+            <RowDefinition Height="30" />
+        </Grid.RowDefinitions>
 
-            <!-- Row 0 -->
-            <UserControls:Header Grid.Row="0"/>
+        <!-- Row 0 -->
+        <UserControls:Header Grid.Row="0"/>
 
-            <!-- Row 1 -->
-            <UserControls:NavigationBar Grid.Row="1"/>
+        <!-- Row 1 -->
+        <UserControls:NavigationBar Grid.Row="1"/>
 
-            <!-- Row 2 -->
-            <Grid Grid.Row="2">
-                <Grid.ColumnDefinitions>
+        <!-- Row 2 -->
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
                     <ColumnDefinition MinWidth="250" Width="1*"/>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition MinWidth="340" Width="2*"/>
-                </Grid.ColumnDefinitions>
-                <!--Visibility="{Binding IsBusy, Converter={StaticResource BoolToVisibilityConverter}}"-->
-                <!-- Column 0 -->
+            </Grid.ColumnDefinitions>
+            <!--Visibility="{Binding IsBusy, Converter={StaticResource BoolToVisibilityConverter}}"-->
+            <!-- Column 0 -->
                 <Border BorderThickness="0,5,0,5" BorderBrush="#2c3e50" Grid.Column="0">
-                    <UserControls:MovieList Grid.Column="0" Visibility="{Binding MovieListVisibility}"/>
+            <UserControls:MovieList Grid.Column="0" Visibility="{Binding MovieListVisibility}"/>
                 </Border>
 
                 <GridSplitter HorizontalAlignment="Right" 
                   VerticalAlignment="Stretch" 
                   Grid.Column="1" ResizeBehavior="PreviousAndNext"
                   Width="5" Background="#2c3e50"/>
-
-                <!-- Column 1 -->
+            
+            <!-- Column 1 -->
                 <Border BorderThickness="0,5,0,5" BorderBrush="#2c3e50" Grid.Column="2">
                     <UserControls:SelectedMovie Grid.Column="2" Visibility="{Binding SelectedMovieVisibility}"/>
                 </Border>
                 <Border BorderThickness="0,5,0,5" BorderBrush="#2c3e50" Grid.Column="2">
                     <UserControls:GenreList Grid.Column="2" Visibility="{Binding GenreListVisibility}"/>
                 </Border>
-            </Grid>
+        </Grid>
 
-            <!-- Row 3 -->
+        <!-- Row 3 -->
+        <TextBlock Grid.Row="3" Text="© Filmator 2014" Padding="5" HorizontalAlignment="Right"/>
         </Grid>
     </Border>
 </Window>
