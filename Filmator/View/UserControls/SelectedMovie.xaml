@@ -4,9 +4,44 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:r="clr-namespace:Filmator.Resources.View"
+             xmlns:helpers="clr-namespace:Filmator.ViewModel.Helpers"
              DataContext="{Binding Main, Source={StaticResource Locator}}"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <Style  TargetType="{x:Type Button}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ButtonBase}">
+                        <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+                            <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="Button.IsDefaulted" Value="True">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" TargetName="border" Value="#3498db"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" TargetName="border" Value="#3498db"/>
+                            </Trigger>
+                            <Trigger Property="ToggleButton.IsChecked" Value="True">
+                                <Setter Property="Background" TargetName="border" Value="#3498db"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Background" TargetName="border" Value="#34495e"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="BorderBrush" Value="#2980b9"/>
+            <Setter Property="Background" Value="#2980b9"/>
+        </Style>
+    </UserControl.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -24,18 +59,23 @@
 
         <Grid Background="#ecf0f1" Grid.Row="3">
             <Grid.RowDefinitions>
-                <RowDefinition/>
+                <RowDefinition Height="25"/>
                 <RowDefinition Height="Auto"/>
 
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="25"/>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="3*"/>
                 <ColumnDefinition Width="25"/>
             </Grid.ColumnDefinitions>
 
-            <StackPanel DataContext="{Binding SelectedMovie}" Grid.Row="1" Grid.Column="1" Orientation="Vertical">
+            <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical">
+                <Image helpers:ImageAsyncHelper.SourceUri="{Binding CurrentPosterPath, IsAsync=True}" />
+            </StackPanel>
+
+            <StackPanel DataContext="{Binding SelectedMovie}" Grid.Row="1" Grid.Column="2" Orientation="Vertical">
                 <TextBlock 
                     Foreground="#ecf0f1"
                     Background="#3498db"
@@ -63,11 +103,11 @@
                             </ControlTemplate>
                         </ItemsControl.Template>
                         <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <Border Padding="5">
-                                        <TextBlock Text="{Binding Name}"/>
-                                    </Border>
-                                </DataTemplate>
+                            <DataTemplate>
+                                <Border Padding="5">
+                                    <TextBlock Text="{Binding Name}"/>
+                                </Border>
+                            </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
                 </Border>

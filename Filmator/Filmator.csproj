@@ -107,12 +107,14 @@
     <Compile Include="Model\Manager\IMovieManager.cs" />
     <Compile Include="Model\Manager\MovieManager.cs" />
     <Compile Include="Model\Provider\GenreProvider.cs" />
+    <Compile Include="Model\Provider\ImageProvider.cs" />
     <Compile Include="Model\Provider\SearchMovieProvider.cs" />
     <Compile Include="Model\Provider\IProvider.cs" />
     <Compile Include="Model\Provider\MovieInfoProvider.cs" />
     <Compile Include="Model\SearchContainerService.cs" />
     <Compile Include="Model\Utils\EnumsHelper.cs" />
     <Compile Include="Model\Utils\FastDelegates.cs" />
+    <Compile Include="ViewModel\Helpers\ImageAsyncHelper.cs" />
     <Compile Include="Model\Utils\Translator.cs" />
     <Compile Include="Converters\SearchStateConverter.cs" />
     <Compile Include="View\UserControls\GenreList.xaml.cs">

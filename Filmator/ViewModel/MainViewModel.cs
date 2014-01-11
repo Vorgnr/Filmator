@@ -1,9 +1,11 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
 using Filmator.Model.Entities;
 using Filmator.Model.Enums;
 using Filmator.Model.Manager;
+using Filmator.Model.Provider;
 using Filmator.Model.Utils;
 using GalaSoft.MvvmLight;
 using Filmator.Model;
@@ -22,6 +24,7 @@ namespace Filmator.ViewModel {
         private readonly ISearchContainerService _dataService;
         public IMovieManager MovieManager { get; set; }
         public IGenreManager GenreManager { get; set; }
+        public ImageProvider ImageProvider { get; set; }
 
         #region Commands
 
@@ -99,8 +102,8 @@ namespace Filmator.ViewModel {
         #region Query
         public void AddToMyMoviesAction(int id) {
             if (SelectedMovie != null)
-                MovieManager.Add(new MovieInfo{
-                    RemoteId = SelectedMovie.Id, 
+                MovieManager.Add(new MovieInfo {
+                    RemoteId = SelectedMovie.Id,
                     Title = SelectedMovie.Title
                 });
         }
@@ -133,8 +136,9 @@ namespace Filmator.ViewModel {
             SelectedMovieVisibility = Visibility.Visible;
             GenreListVisibility = Visibility.Hidden;
             var movie = arg as MovieResult;
-            if (movie != null)
-                SelectedMovie = MovieManager.GetMovieById(movie.Id);
+            if (movie == null) return;
+            SelectedMovie = MovieManager.GetMovieById(movie.Id);
+            CurrentPosterPath = ImageProvider.GetFullPosterPath(SelectedMovie.PosterPath, "185");
         }
 
         public void SetSearchStateAction(string descriptionState) {
@@ -249,6 +253,13 @@ namespace Filmator.ViewModel {
             get { return _customSearch; }
             set { _customSearch = value; RaisePropertyChanged(CustomSearchPropertyName); }
         }
+
+        public const string CurrentPosterPathPropertyName = "CurrentPosterPath";
+        private Uri _currentPosterPath;
+        public Uri CurrentPosterPath {
+            get { return _currentPosterPath; }
+            set { _currentPosterPath = value; RaisePropertyChanged(CurrentPosterPathPropertyName); }
+        }
         #endregion
         #endregion
 
@@ -287,6 +298,7 @@ namespace Filmator.ViewModel {
         private void Init() {
             MovieManager = new MovieManager();
             GenreManager = new GenreManager();
+            ImageProvider = new ImageProvider();
             IsBusy = false;
             SearchVisibility = Visibility.Hidden;
             MovieListVisibility = Visibility.Hidden;

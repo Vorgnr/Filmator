@@ -58,10 +58,10 @@
             
             <!-- Column 1 -->
                 <Border BorderThickness="0,5,0,5" BorderBrush="#2c3e50" Grid.Column="2">
-                    <UserControls:SelectedMovie Grid.Column="2" Visibility="{Binding SelectedMovieVisibility}"/>
+                    <UserControls:SelectedMovie Visibility="{Binding SelectedMovieVisibility}"/>
                 </Border>
                 <Border BorderThickness="0,5,0,5" BorderBrush="#2c3e50" Grid.Column="2">
-                    <UserControls:GenreList Grid.Column="2" Visibility="{Binding GenreListVisibility}"/>
+                    <UserControls:GenreList Visibility="{Binding GenreListVisibility}"/>
                 </Border>
         </Grid>
 
