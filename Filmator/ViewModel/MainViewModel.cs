@@ -47,6 +47,7 @@ namespace Filmator.ViewModel {
         public RelayCommand<object> ToggleMaximizedWindowStateCommand { get; set; }
         public RelayCommand<object> SetMinimizeWindowStateCommand { get; set; }
         public RelayCommand<int> AddToMyMoviesCommand { get; set; }
+        public ICommand CreateOrUpdateMovieInfoCommand { get; set; }
         #endregion
 
         #region Actions
@@ -100,7 +101,7 @@ namespace Filmator.ViewModel {
 
         #endregion
         #region Query
-        public void AddToMyMoviesAction(int id) {
+        private void AddToMyMoviesAction(int id) {
             if (SelectedMovie != null)
                 MovieManager.Add(new MovieInfo {
                     RemoteId = SelectedMovie.Id,
@@ -108,33 +109,33 @@ namespace Filmator.ViewModel {
                 });
         }
 
-        public bool CanAddToMyMovies(int id) {
+        private bool CanAddToMyMovies(int id) {
             if (id == 0)
                 return false;
             return MovieManager.GetMovieInfoByRemoteId(id) == null;
         }
 
-        public void IncrementPageAction() {
+        private void IncrementPageAction() {
             Page++;
             SearchContainerOfMovieResult = SearchState == SearchState.Genre ? GenreManager.GetSearchContainerByGenreId(SelectedGenre.Id, Page) : MovieManager.GetSearchByState(SearchState, Page);
             IncrementPageCommand.RaiseCanExecuteChanged();
         }
 
-        public void DecrementPageAction() {
+        private void DecrementPageAction() {
             Page--;
             SearchContainerOfMovieResult = SearchState == SearchState.Genre ? GenreManager.GetSearchContainerByGenreId(SelectedGenre.Id, Page) : MovieManager.GetSearchByState(SearchState, Page);
             DecrementPageCommand.RaiseCanExecuteChanged();
         }
 
-        public bool CanIncrementPage() {
+        private bool CanIncrementPage() {
             return Page < SearchContainerOfMovieResult.TotalPages;
         }
 
-        public bool CanDecrementPage() {
+        private bool CanDecrementPage() {
             return Page > 1;
         }
 
-        public void SetSelecteMovieAction(object arg) {
+        private void SetSelecteMovieAction(object arg) {
             SelectedMovieVisibility = Visibility.Visible;
             GenreListVisibility = Visibility.Hidden;
             var movie = arg as MovieResult;
@@ -144,26 +145,38 @@ namespace Filmator.ViewModel {
             var movieInfo = MovieManager.GetMovieInfoByRemoteId(movie.Id);
             MovieInfo = movieInfo ?? new MovieInfo();
             CurrentPosterPath = ImageProvider.GetFullPosterPath(SelectedMovie.PosterPath, "185");
-            if (SelectedMovie.Casts == null) return;
+            if (SelectedMovie.Casts == null)
+                return;
             foreach (var cast in SelectedMovie.Casts.Cast) {
                 cast.ProfilePath = ImageProvider.GetFullPosterPath(cast.ProfilePath, "45").ToString();
             }
         }
 
-        public void SetSearchStateAction(string descriptionState) {
+        private void SetSearchStateAction(string descriptionState) {
             Page = 1;
             SearchState = EnumsHelper.GetEnumByDescription<SearchState>(descriptionState);
             SearchContainerOfMovieResult = MovieManager.GetSearchByState(SearchState, Page, CustomSearch);
             MovieListVisibility = Visibility.Visible;
         }
 
-        public void SetSelectedGenreAction(object arg) {
+        private void SetSelectedGenreAction(object arg) {
             Page = 1;
             var genre = arg as Genre;
             SearchState = SearchState.Genre;
             SelectedGenre = genre;
             if (genre != null)
                 SearchContainerOfMovieResult = GenreManager.GetSearchContainerByGenreId(genre.Id, Page);
+        }
+
+        private void CreateOrUpdateMovieInfoAction() {
+            var movieInfo = MovieManager.GetMovieInfoByRemoteId(SelectedMovie.Id);
+            if (movieInfo == null) {
+                MovieInfo.RemoteId = SelectedMovie.Id;
+                MovieInfo.Title = SelectedMovie.Title;
+                MovieManager.Add(MovieInfo);
+            } else {
+                MovieManager.Update(MovieInfo);
+            }
         }
 
         #endregion
@@ -309,6 +322,7 @@ namespace Filmator.ViewModel {
             IncrementPageCommand = new RelayCommand(IncrementPageAction, CanIncrementPage);
             DecrementPageCommand = new RelayCommand(DecrementPageAction, CanDecrementPage);
             AddToMyMoviesCommand = new RelayCommand<int>(AddToMyMoviesAction, CanAddToMyMovies);
+            CreateOrUpdateMovieInfoCommand = new RelayCommand(CreateOrUpdateMovieInfoAction);
         }
 
         private void Init() {

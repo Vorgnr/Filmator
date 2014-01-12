@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:r="clr-namespace:Filmator.Resources.View"
              xmlns:helpers="clr-namespace:Filmator.ViewModel.Helpers"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              DataContext="{Binding Main, Source={StaticResource Locator}}"
              mc:Ignorable="d" 
              d:DesignHeight="800" d:DesignWidth="800">
@@ -41,32 +42,72 @@
             <Setter Property="BorderBrush" Value="#2980b9"/>
             <Setter Property="Background" Value="#2980b9"/>
         </Style>
+
+        <Style x:Key="Seen"  TargetType="{x:Type Button}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ButtonBase}">
+                        <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+                            <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="Button.IsDefaulted" Value="True">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" TargetName="border" Value="#2ecc71"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" TargetName="border" Value="#2ecc71"/>
+                            </Trigger>
+                            <Trigger Property="ToggleButton.IsChecked" Value="True">
+                                <Setter Property="Background" TargetName="border" Value="#2ecc71"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="BorderBrush" Value="#27ae60"/>
+            <Setter Property="Background" Value="#27ae60"/>
+            <Setter Property="Content" Value="Vu"/>
+        </Style>
+
     </UserControl.Resources>
     <ScrollViewer>
         <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="30" />
-            <RowDefinition/>
-        </Grid.RowDefinitions>
-
-        <TextBlock TextAlignment="Center" Grid.Row="0" FontSize="25" Text="{Binding SelectedMovie.Title}"/>
-
-        <Grid Background="#ecf0f1" Grid.Row="1">
             <Grid.RowDefinitions>
-                <RowDefinition Height="25"/>
-                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="45" />
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="25"/>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="3*"/>
-                <ColumnDefinition Width="25"/>
-            </Grid.ColumnDefinitions>
 
-            <StackPanel  Grid.Row="1" Grid.Column="1" Orientation="Vertical">
-                <Image Margin="0,0,0,5" helpers:ImageAsyncHelper.SourceUri="{Binding CurrentPosterPath, IsAsync=True}" />
+            <Grid Background="#34495e">
                 <TextBlock 
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Center" 
+                TextAlignment="Center" 
+                FontSize="25" 
+                    Foreground="#ecf0f1"
+                Text="{Binding SelectedMovie.Title}"/>
+            </Grid>
+
+
+            <Grid Background="#ecf0f1" Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="25"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="25"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="25"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel  Grid.Row="1" Grid.Column="1" Orientation="Vertical">
+                    <Image Margin="0,0,0,5" helpers:ImageAsyncHelper.SourceUri="{Binding CurrentPosterPath, IsAsync=True}" />
+                    <TextBlock 
                     Foreground="#ecf0f1"
                     Background="#3498db"
                     Padding="10"
@@ -107,47 +148,77 @@
                     <Button Style="{StaticResource Add}" Content="{x:Static r:MainWindow.AddToMyMovies}"
                             Command="{Binding AddToMyMoviesCommand}"
                             CommandParameter="{Binding SelectedMovie.Id}"/>
-                    <Button Content="Vu"/>
-                    <Button Content="Possédé"/>
+                    <Border Margin="0,0,0,4" BorderThickness="2,0,2,2" BorderBrush="#2c3e50">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="30"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Margin="2" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Vu" Grid.Row="0" Grid.Column="0"/>
+                            <CheckBox Margin="2" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="0" Grid.Column="1"
+                                      IsChecked="{Binding MovieInfo.IsSeen, Mode=TwoWay}">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Checked">
+                                        <i:InvokeCommandAction Command="{Binding CreateOrUpdateMovieInfoCommand}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </CheckBox>
+
+                            <TextBlock Margin="2" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Possédé" Grid.Row="1" Grid.Column="0"/>
+                            <CheckBox IsChecked="{Binding MovieInfo.IsOwned, Mode=TwoWay}" Margin="2" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="1">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Checked">
+                                        <i:InvokeCommandAction Command="{Binding CreateOrUpdateMovieInfoCommand}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </CheckBox>
+                        </Grid>
+                    </Border>
 
                 </StackPanel>
 
-            <StackPanel Margin="5,0,0,0" DataContext="{Binding SelectedMovie}" Grid.Row="1" Grid.Column="2" Orientation="Vertical">
-                <TextBlock 
+                <StackPanel Margin="5,0,0,0" DataContext="{Binding SelectedMovie}" Grid.Row="1" Grid.Column="2" Orientation="Vertical">
+                    <TextBlock 
                     Foreground="#ecf0f1"
                     Background="#3498db"
                     Padding="10"
                     Text="Résumé" />
-                <Border Margin="0,0,0,4" BorderThickness="2,0,2,2" BorderBrush="#2c3e50">
-                    <TextBlock
+                    <Border Margin="0,0,0,4" BorderThickness="2,0,2,2" BorderBrush="#2c3e50">
+                        <TextBlock
                         Padding="10"
                         TextWrapping="Wrap"
                         Text="{Binding Overview}" 
                         Background="#ecf0f1"/>
-                </Border>
-                <TextBlock 
+                    </Border>
+                    <TextBlock 
                     Foreground="#ecf0f1"
                     Background="#3498db"
                     Padding="10"
                     Text="Genres" />
                     <Border Margin="0,0,0,4" BorderThickness="2,0,2,2" BorderBrush="#2c3e50">
-                    <ItemsControl ItemsSource="{Binding Genres}">
-                        <ItemsControl.Template>
-                            <ControlTemplate>
-                                <WrapPanel  Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" 
+                        <ItemsControl ItemsSource="{Binding Genres}">
+                            <ItemsControl.Template>
+                                <ControlTemplate>
+                                    <WrapPanel  Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" 
                                     FlowDirection="LeftToRight" IsItemsHost="true">
-                                </WrapPanel>
-                            </ControlTemplate>
-                        </ItemsControl.Template>
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <Border Padding="5">
-                                    <TextBlock Text="{Binding Name}"/>
-                                </Border>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                </Border>
+                                    </WrapPanel>
+                                </ControlTemplate>
+                            </ItemsControl.Template>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Padding="5">
+                                        <TextBlock Text="{Binding Name}"/>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </Border>
                     <TextBlock 
                     Foreground="#ecf0f1"
                     Background="#3498db"
@@ -228,7 +299,7 @@
                         </ListBox>
                     </Border>
                 </StackPanel>
-        </Grid>
+            </Grid>
         </Grid>
     </ScrollViewer>
 </UserControl>

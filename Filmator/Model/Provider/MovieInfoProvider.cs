@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using Filmator.Model.Entities;
 
@@ -78,7 +79,12 @@ namespace Filmator.Model.Provider {
         }
 
         public MovieInfo Update(MovieInfo obj) {
-            throw new System.NotImplementedException();
+            using (var context = new FilmatorContext()) {
+                context.MovieInfos.Attach(obj);
+                context.Entry(obj).State = EntityState.Modified;
+                context.SaveChanges();
+                return context.Entry(obj).Entity;
+            }
         }
     }
 }
