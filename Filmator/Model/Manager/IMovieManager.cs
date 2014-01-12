@@ -9,5 +9,6 @@ namespace Filmator.Model.Manager {
         Movie GetMovieById(int id );
         MovieInfo GetMovieInfoByRemoteId(int id);
         MovieInfo Add(MovieInfo movie);
+        MovieInfo Update(MovieInfo movie);
     }
 }

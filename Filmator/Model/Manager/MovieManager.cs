@@ -43,7 +43,7 @@ namespace Filmator.Model.Manager {
         private SearchContainer<MovieResult> TopRated(int page, int numberByPage, string name) {
             return SearchByState(page, SearchState.TopRated.ToString());
 
-        }
+            }
 
         private SearchContainer<MovieResult> Popular(int page, int numberByPage, string name) {
             return SearchByState(page, SearchState.Popular.ToString());
@@ -86,6 +86,11 @@ namespace Filmator.Model.Manager {
 
         public MovieInfo GetMovieInfoByRemoteId(int id) {
             return MovieInfoProvider.GetByRemoteId(id);
+        }
+
+
+        public MovieInfo Update(MovieInfo movie) {
+            return MovieInfoProvider.Update(movie);
         }
     }
 }
