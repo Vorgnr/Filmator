@@ -7,7 +7,7 @@
              xmlns:helpers="clr-namespace:Filmator.ViewModel.Helpers"
              DataContext="{Binding Main, Source={StaticResource Locator}}"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="800">
+             d:DesignHeight="800" d:DesignWidth="800">
 
     <UserControl.Resources>
         <Style  TargetType="{x:Type Button}">
@@ -71,7 +71,7 @@
             </Grid.ColumnDefinitions>
 
             <StackPanel  Grid.Row="1" Grid.Column="1" Orientation="Vertical">
-                <Image Margin="5" helpers:ImageAsyncHelper.SourceUri="{Binding CurrentPosterPath, IsAsync=True}" />
+                <Image Margin="0,0,0,5" helpers:ImageAsyncHelper.SourceUri="{Binding CurrentPosterPath, IsAsync=True}" />
                 <TextBlock 
                     Foreground="#ecf0f1"
                     Background="#3498db"
@@ -111,7 +111,7 @@
                     </Border>
                 </StackPanel>
 
-            <StackPanel Margin="5" DataContext="{Binding SelectedMovie}" Grid.Row="1" Grid.Column="2" Orientation="Vertical">
+            <StackPanel Margin="5,0,0,0" DataContext="{Binding SelectedMovie}" Grid.Row="1" Grid.Column="2" Orientation="Vertical">
                 <TextBlock 
                     Foreground="#ecf0f1"
                     Background="#3498db"
@@ -191,6 +191,38 @@
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
+                    </Border>
+                    <TextBlock 
+                        Foreground="#ecf0f1"
+                        Background="#3498db"
+                        Padding="10"
+                        Text="Casting" />
+                    <Border Margin="0,0,0,4" BorderThickness="2,0,2,2" BorderBrush="#2c3e50">
+                        <ListBox ItemsSource="{Binding Casts.Cast}">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="70"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="45"/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+                                        <Border Grid.Column="0">
+                                            <Image  helpers:ImageAsyncHelper.SourceUri="{Binding ProfilePath, IsAsync=True}"/>
+                                        </Border>
+                                        <Border Margin="2,0,0,0" Grid.Column="1">
+                                            <TextBlock VerticalAlignment="Center" Text="{Binding Name}"/>
+                                        </Border>
+                                        <Border Grid.Column="2">
+                                            <TextBlock VerticalAlignment="Center" Text="{Binding Character}"/>
+                                        </Border>
+                                    </Grid>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
                     </Border>
                 </StackPanel>
         </Grid>
