@@ -108,9 +108,9 @@ namespace Filmator.ViewModel {
                 });
         }
 
-        public bool CanAddToMyMovies(int id)
-        {
-            if (id == 0) return false;
+        public bool CanAddToMyMovies(int id) {
+            if (id == 0)
+                return false;
             return MovieManager.GetMovieInfoByRemoteId(id) == null;
         }
 
@@ -138,9 +138,13 @@ namespace Filmator.ViewModel {
             SelectedMovieVisibility = Visibility.Visible;
             GenreListVisibility = Visibility.Hidden;
             var movie = arg as MovieResult;
-            if (movie == null) return;
+            if (movie == null)
+                return;
             SelectedMovie = MovieManager.GetMovieById(movie.Id);
             CurrentPosterPath = ImageProvider.GetFullPosterPath(SelectedMovie.PosterPath, "185");
+            foreach (var cast in SelectedMovie.Casts.Cast) {
+                cast.ProfilePath = ImageProvider.GetFullPosterPath(cast.ProfilePath, "45").ToString();
+            }
         }
 
         public void SetSearchStateAction(string descriptionState) {
