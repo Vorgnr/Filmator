@@ -1,4 +1,5 @@
-﻿using System.Configuration;
+﻿using System;
+using System.Configuration;
 using TMDbLib.Client;
 using TMDbLib.Objects.General;
 using TMDbLib.Objects.Movies;
@@ -19,16 +20,10 @@ namespace Filmator.Model.Provider {
             return _clientApi == null ? null : _clientApi.SearchMovie(name, "fr", page);
         }
 
-        public SearchContainer<MovieResult> Popular(int page) {
-            return _clientApi == null ? null : _clientApi.GetMovieList(MovieListType.Popular, "fr", page);
-        }
-
-        public SearchContainer<MovieResult> NowPlaying(int page) {
-            return _clientApi == null ? null : _clientApi.GetMovieList(MovieListType.NowPlaying, "fr", page);
-        }
-
-        public SearchContainer<MovieResult> TopRated(int page) {
-            return _clientApi == null ? null : _clientApi.GetMovieList(MovieListType.TopRated, "fr", page);
+        public SearchContainer<MovieResult> GetByRankingType(int page, string type)
+        {
+            MovieListType movieType = (MovieListType)Enum.Parse(typeof(MovieListType), type, true);
+            return _clientApi == null ? null : _clientApi.GetMovieList(movieType, "fr", page);
         }
 
         public SearchContainer<MovieResult> GetByGenreId(int genreId, int page) {

@@ -41,39 +41,28 @@ namespace Filmator.Model.Manager {
         }
 
         private SearchContainer<MovieResult> TopRated(int page, int numberByPage, string name) {
-            var cacheHandler = CacheHandlerFactory.GetCacheHandler<SearchContainer<MovieResult>>();
-            var searchContainer = cacheHandler.Get(new Hashtable { { "Page", page }, { "State", SearchState.TopRated.ToString() } });
-            if (searchContainer != null)
-                return searchContainer;
-            searchContainer = ResultProvider.TopRated(page);
-            if (searchContainer != null) {
-                cacheHandler.Add(searchContainer, DateTime.Now.AddHours(5), SearchState.TopRated.ToString());
-                return searchContainer;
-            }
-            return null;
+            return SearchByState(page, SearchState.TopRated.ToString());
+
         }
 
         private SearchContainer<MovieResult> Popular(int page, int numberByPage, string name) {
-            var cacheHandler = CacheHandlerFactory.GetCacheHandler<SearchContainer<MovieResult>>();
-            var searchContainer = cacheHandler.Get(new Hashtable { { "Page", page }, { "State", SearchState.Popular.ToString() } });
-            if (searchContainer != null)
-                return searchContainer;
-            searchContainer = ResultProvider.Popular(page);
-            if (searchContainer != null) {
-                cacheHandler.Add(searchContainer, DateTime.Now.AddHours(5), SearchState.Popular.ToString());
-                return searchContainer;
-            }
-            return null;
+            return SearchByState(page, SearchState.Popular.ToString());
         }
 
         private SearchContainer<MovieResult> NowPlaying(int page, int numberByPage, string name) {
+            return SearchByState(page, SearchState.NowPlaying.ToString());
+        }
+
+        private SearchContainer<MovieResult> SearchByState(int page, string state)
+        {
             var cacheHandler = CacheHandlerFactory.GetCacheHandler<SearchContainer<MovieResult>>();
-            var searchContainer = cacheHandler.Get(new Hashtable { { "Page", page }, { "State", SearchState.NowPlaying.ToString() } });
+            var searchContainer = cacheHandler.Get(new Hashtable { { "Page", page }, { "State", state } });
             if (searchContainer != null)
                 return searchContainer;
-            searchContainer = ResultProvider.NowPlaying(page);
-            if (searchContainer != null) {
-                cacheHandler.Add(searchContainer, DateTime.Now.AddHours(5), SearchState.NowPlaying.ToString());
+            searchContainer = ResultProvider.GetByRankingType(page, state);
+            if (searchContainer != null)
+            {
+                cacheHandler.Add(searchContainer, DateTime.Now.AddHours(5), state);
                 return searchContainer;
             }
             return null;
