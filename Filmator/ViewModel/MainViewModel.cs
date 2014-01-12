@@ -142,8 +142,13 @@ namespace Filmator.ViewModel {
                 return;
             SelectedMovie = MovieManager.GetMovieById(movie.Id);
             CurrentPosterPath = ImageProvider.GetFullPosterPath(SelectedMovie.PosterPath, "185");
-            foreach (var cast in SelectedMovie.Casts.Cast) {
-                cast.ProfilePath = ImageProvider.GetFullPosterPath(cast.ProfilePath, "45").ToString();
+            if (SelectedMovie.Casts != null)
+            {
+                foreach (var cast in SelectedMovie.Casts.Cast)
+                {
+                    cast.ProfilePath = ImageProvider.GetFullPosterPath(cast.ProfilePath, "45").ToString();
+                }
+        
             }
         }
 

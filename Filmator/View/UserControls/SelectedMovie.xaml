@@ -160,10 +160,12 @@
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition/>
                                             <ColumnDefinition/>
+                                            <ColumnDefinition/>
                                         </Grid.ColumnDefinitions>
 
-                                        <TextBlock Padding="10" Grid.Column="0" Text="{Binding Job}"/>
-                                        <TextBlock Padding="10" Grid.Column="1" Text="{Binding Name}"/>
+                                        <TextBlock Padding="0" Grid.Column="0" Text="{Binding Job}"/>
+                                        <TextBlock Padding="0" Grid.Column="1" Text=" : "/>
+                                        <TextBlock Padding="0" Grid.Column="2" Text="{Binding Name}"/>
                                     </Grid>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
