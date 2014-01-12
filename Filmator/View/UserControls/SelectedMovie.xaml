@@ -10,7 +10,7 @@
              d:DesignHeight="800" d:DesignWidth="800">
 
     <UserControl.Resources>
-        <Style  TargetType="{x:Type Button}">
+        <Style x:Key="Add"  TargetType="{x:Type Button}">
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type ButtonBase}">
@@ -45,19 +45,13 @@
     <ScrollViewer>
         <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="25"/>
-            <RowDefinition Height="30" />
             <RowDefinition Height="30" />
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <TextBlock TextAlignment="Center" Grid.Row="1" FontSize="25" Text="{Binding SelectedMovie.Title}"/>
-        <Button Grid.Row="2" 
-            Content="{x:Static r:MainWindow.AddToMyMovies}"
-            Command="{Binding AddToMyMoviesCommand}"
-            CommandParameter="{Binding SelectedMovie.Id}"/>
+        <TextBlock TextAlignment="Center" Grid.Row="0" FontSize="25" Text="{Binding SelectedMovie.Title}"/>
 
-        <Grid Background="#ecf0f1" Grid.Row="3">
+        <Grid Background="#ecf0f1" Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="25"/>
                 <RowDefinition Height="Auto"/>
@@ -109,6 +103,13 @@
                             </Grid>
                         </StackPanel>
                     </Border>
+
+                    <Button Style="{StaticResource Add}" Content="{x:Static r:MainWindow.AddToMyMovies}"
+                            Command="{Binding AddToMyMoviesCommand}"
+                            CommandParameter="{Binding SelectedMovie.Id}"/>
+                    <Button Content="Vu"/>
+                    <Button Content="Possédé"/>
+
                 </StackPanel>
 
             <StackPanel Margin="5,0,0,0" DataContext="{Binding SelectedMovie}" Grid.Row="1" Grid.Column="2" Orientation="Vertical">

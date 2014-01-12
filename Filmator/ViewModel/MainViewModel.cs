@@ -141,6 +141,8 @@ namespace Filmator.ViewModel {
             if (movie == null)
                 return;
             SelectedMovie = MovieManager.GetMovieById(movie.Id);
+            var movieInfo = MovieManager.GetMovieInfoByRemoteId(movie.Id);
+            MovieInfo = movieInfo ?? new MovieInfo();
             CurrentPosterPath = ImageProvider.GetFullPosterPath(SelectedMovie.PosterPath, "185");
             foreach (var cast in SelectedMovie.Casts.Cast) {
                 cast.ProfilePath = ImageProvider.GetFullPosterPath(cast.ProfilePath, "45").ToString();
@@ -265,6 +267,13 @@ namespace Filmator.ViewModel {
         public Uri CurrentPosterPath {
             get { return _currentPosterPath; }
             set { _currentPosterPath = value; RaisePropertyChanged(CurrentPosterPathPropertyName); }
+        }
+
+        public const string MovieInfoPropertyName = "MovieInfo";
+        private MovieInfo _movieInfo;
+        public MovieInfo MovieInfo {
+            get { return _movieInfo; }
+            set { _movieInfo = value; RaisePropertyChanged(MovieInfoPropertyName); }
         }
         #endregion
         #endregion
