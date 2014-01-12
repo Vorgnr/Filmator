@@ -22,7 +22,7 @@ namespace Filmator.Model.Provider {
 
         public SearchContainer<MovieResult> GetByRankingType(int page, string type)
         {
-            MovieListType movieType = (MovieListType)Enum.Parse(typeof(MovieListType), type, true);
+            var movieType = (MovieListType)Enum.Parse(typeof(MovieListType), type, true);
             return _clientApi == null ? null : _clientApi.GetMovieList(movieType, "fr", page);
         }
 

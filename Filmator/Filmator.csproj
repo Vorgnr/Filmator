@@ -89,6 +89,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
+    <Compile Include="Converters\DoubleToColorConverter.cs" />
+    <Compile Include="Converters\DoubleToRateConverter.cs" />
     <Compile Include="Design\DesignDataService.cs" />
     <Compile Include="Design\DesignSearchContainerService.cs" />
     <Compile Include="Model\Cache\CacheHandlerFactory.cs" />

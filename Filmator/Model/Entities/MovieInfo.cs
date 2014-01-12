@@ -11,6 +11,6 @@ namespace Filmator.Model.Entities {
         public int RemoteId { get; set; }
         public bool IsSeen { get; set; }
         public bool IsOwned { get; set; }
-        public int Rate { get; set; }
+        public double Rate { get; set; }
     }
 }

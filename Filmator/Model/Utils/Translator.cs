@@ -9,14 +9,15 @@ namespace Filmator.Model.Utils {
         public static MovieResult MovieInfoToMovieResult(MovieInfo movie) {
             return new MovieResult {
                 Id = movie.RemoteId,
-                Title = movie.Title
+                Title = movie.Title,
+                VoteAverage = movie.Rate
             };
         }
 
         public static MovieResult SearchMovieToMovieResult(SearchMovie movie) {
             return new MovieResult {
                 Id = movie.Id,
-                Title = movie.Title
+                Title = movie.Title,
             };
         }
 
