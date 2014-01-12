@@ -108,8 +108,10 @@ namespace Filmator.ViewModel {
                 });
         }
 
-        public bool CanAddToMyMovies(int id) {
-            return id != 0;
+        public bool CanAddToMyMovies(int id)
+        {
+            if (id == 0) return false;
+            return MovieManager.GetMovieInfoByRemoteId(id) == null;
         }
 
         public void IncrementPageAction() {

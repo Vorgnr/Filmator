@@ -1,5 +1,4 @@
 ﻿using System.Configuration;
-using Filmator.Model.Utils;
 using TMDbLib.Client;
 using TMDbLib.Objects.General;
 using TMDbLib.Objects.Movies;
@@ -13,27 +12,27 @@ namespace Filmator.Model.Provider {
         }
 
         public Movie GetById(int id) {
-            return _clientApi == null ? null : _clientApi.GetMovie(id);
+            return _clientApi == null ? null : _clientApi.GetMovie(id, "fr", MovieMethods.Casts);
         }
 
         public SearchContainer<SearchMovie> GetSearchByMovieName(string name, int page) {
-            return _clientApi == null ? null : _clientApi.SearchMovie(name, page);
+            return _clientApi == null ? null : _clientApi.SearchMovie(name, "fr", page);
         }
 
         public SearchContainer<MovieResult> Popular(int page) {
-            return _clientApi == null ? null : _clientApi.GetMovieList(MovieListType.Popular, page);
+            return _clientApi == null ? null : _clientApi.GetMovieList(MovieListType.Popular, "fr", page);
         }
 
         public SearchContainer<MovieResult> NowPlaying(int page) {
-            return _clientApi == null ? null : _clientApi.GetMovieList(MovieListType.NowPlaying, page);
+            return _clientApi == null ? null : _clientApi.GetMovieList(MovieListType.NowPlaying, "fr", page);
         }
 
         public SearchContainer<MovieResult> TopRated(int page) {
-            return _clientApi == null ? null : _clientApi.GetMovieList(MovieListType.TopRated, page);
+            return _clientApi == null ? null : _clientApi.GetMovieList(MovieListType.TopRated, "fr", page);
         }
 
         public SearchContainer<MovieResult> GetByGenreId(int genreId, int page) {
-            return _clientApi == null ? null : _clientApi.GetGenreMovies(genreId, page);
+            return _clientApi == null ? null : _clientApi.GetGenreMovies(genreId, "fr", page);
         }
     }
 }

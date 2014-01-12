@@ -42,8 +42,8 @@
             <Setter Property="Background" Value="#2980b9"/>
         </Style>
     </UserControl.Resources>
-
-    <Grid>
+    <ScrollViewer>
+        <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="25"/>
             <RowDefinition Height="30" />
@@ -61,7 +61,6 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="25"/>
                 <RowDefinition Height="Auto"/>
-
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
@@ -71,16 +70,53 @@
                 <ColumnDefinition Width="25"/>
             </Grid.ColumnDefinitions>
 
-            <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical">
-                <Image helpers:ImageAsyncHelper.SourceUri="{Binding CurrentPosterPath, IsAsync=True}" />
-            </StackPanel>
-
-            <StackPanel DataContext="{Binding SelectedMovie}" Grid.Row="1" Grid.Column="2" Orientation="Vertical">
+            <StackPanel  Grid.Row="1" Grid.Column="1" Orientation="Vertical">
+                <Image Margin="5" helpers:ImageAsyncHelper.SourceUri="{Binding CurrentPosterPath, IsAsync=True}" />
                 <TextBlock 
                     Foreground="#ecf0f1"
                     Background="#3498db"
                     Padding="10"
-                    Text="Overview" />
+                    Text="Infos" />
+                    <Border Margin="0,0,0,4" BorderThickness="2,0,2,2" BorderBrush="#2c3e50">
+                        <StackPanel>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Text="Status" Padding="10"/>
+                                <TextBlock Text="{Binding SelectedMovie.Status}" Padding="10" Grid.Column="1"/>
+                            </Grid>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Text="Budget" Padding="10"/>
+                                <TextBlock Text="{Binding SelectedMovie.Budget}" Padding="10" Grid.Column="1"/>
+                            </Grid>
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Text="Revenue" Padding="10"/>
+                                <TextBlock Text="{Binding SelectedMovie.Revenue}" Padding="10" Grid.Column="1"/>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+
+            <StackPanel Margin="5" DataContext="{Binding SelectedMovie}" Grid.Row="1" Grid.Column="2" Orientation="Vertical">
+                <TextBlock 
+                    Foreground="#ecf0f1"
+                    Background="#3498db"
+                    Padding="10"
+                    Text="Résumé" />
                 <Border Margin="0,0,0,4" BorderThickness="2,0,2,2" BorderBrush="#2c3e50">
                     <TextBlock
                         Padding="10"
@@ -93,7 +129,7 @@
                     Background="#3498db"
                     Padding="10"
                     Text="Genres" />
-                <Border BorderThickness="2,0,2,2" BorderBrush="#2c3e50">
+                    <Border Margin="0,0,0,4" BorderThickness="2,0,2,2" BorderBrush="#2c3e50">
                     <ItemsControl ItemsSource="{Binding Genres}">
                         <ItemsControl.Template>
                             <ControlTemplate>
@@ -111,8 +147,53 @@
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
                 </Border>
-            </StackPanel>
+                    <TextBlock 
+                    Foreground="#ecf0f1"
+                    Background="#3498db"
+                    Padding="10"
+                    Text="Equipe" />
+                    <Border Margin="0,0,0,4" BorderThickness="2,0,2,2" BorderBrush="#2c3e50">
+                        <ListBox ItemsSource="{Binding Casts.Crew}">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
 
+                                        <TextBlock Padding="10" Grid.Column="0" Text="{Binding Job}"/>
+                                        <TextBlock Padding="10" Grid.Column="1" Text="{Binding Name}"/>
+                                    </Grid>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </Border>
+                    <TextBlock 
+                    Foreground="#ecf0f1"
+                    Background="#3498db"
+                    Padding="10"
+                    Text="Sociétés de production" />
+                    <Border Margin="0,0,0,4" BorderThickness="2,0,2,2" BorderBrush="#2c3e50">
+                        <ItemsControl ItemsSource="{Binding ProductionCompanies}">
+                            <ItemsControl.Template>
+                                <ControlTemplate>
+                                    <WrapPanel  Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" 
+                                    FlowDirection="LeftToRight" IsItemsHost="true">
+                                    </WrapPanel>
+                                </ControlTemplate>
+                            </ItemsControl.Template>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Padding="5">
+                                        <TextBlock Text="{Binding Name}"/>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </Border>
+                </StackPanel>
         </Grid>
-    </Grid>
+        </Grid>
+    </ScrollViewer>
 </UserControl>
