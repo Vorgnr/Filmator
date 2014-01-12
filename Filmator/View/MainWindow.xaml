@@ -64,9 +64,9 @@
                     <UserControls:GenreList Visibility="{Binding GenreListVisibility}"/>
                 </Border>
         </Grid>
-
+    
         <!-- Row 3 -->
-        <TextBlock Grid.Row="3" Text="© Filmator 2014" Padding="5" HorizontalAlignment="Right"/>
+            <TextBlock  Background="#2c3e50" Grid.Row="3" Text="© Filmator 2014" Padding="5" TextAlignment="Right"/>
         </Grid>
     </Border>
 </Window>
