@@ -104,7 +104,7 @@
                                     <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
 
-                                <TextBlock Text="Revenue" Padding="10"/>
+                                <TextBlock Text="Revenus" Padding="10"/>
                                 <TextBlock Text="{Binding SelectedMovie.Revenue}" Padding="10" Grid.Column="1"/>
                             </Grid>
                         </StackPanel>
